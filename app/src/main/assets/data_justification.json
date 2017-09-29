@@ -1,0 +1,15 @@
+[
+
+  {"codeQuestion":2,"codeJustification":1,"libelle":"le texte mentionne Bloc et roches.","isCorrect":true},
+  {"codeQuestion":2,"codeJustification":2,"libelle":"Le bloc est en plus grand proportion.","isCorrect":false},
+  {"codeQuestion":2,"codeJustification":3,"libelle":"La construction en bloc est plus coûteuse que celle des roches","isCorrect":false},
+  {"codeQuestion":3,"codeJustification":4,"libelle":"le texte mentionne Béton et Tôle","isCorrect":true},
+  {"codeQuestion":3,"codeJustification":5,"libelle":"le béton est plus coûteux que les tôles","isCorrect":false},
+  {"codeQuestion":3,"codeJustification":6,"libelle":"Le béton est en plus grande proportion.","isCorrect":false},
+  {"codeQuestion":4,"codeJustification":7,"libelle":"La maison principale comporte un logement collectif. Par contre, la petite maisonnette contient deux (2) logements individuels.","isCorrect":false},
+  {"codeQuestion":4,"codeJustification":8,"libelle":"Les deux (2) structures sont indépendantes et chacune comporte un logement collectif.","isCorrect":true},
+  {"codeQuestion":4,"codeJustification":9,"libelle":"La petite maisonnette est une dépendance où se trouve le personnel domestique de la maison principale","isCorrect":false},
+  {"codeQuestion":4,"codeJustification":10,"libelle":"Le personnel de l'hôpital vivent en collectivité dans la maison principale. Par contre, la petite maisonnette a un logement individuel.","isCorrect":false}
+
+
+]

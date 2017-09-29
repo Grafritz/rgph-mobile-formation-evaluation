@@ -1,0 +1,8 @@
+[
+
+  {"codeQuestion":1,"libelle":"Q1: Que faites-vous pour répondre aux questions B1 à B5","detailsQuestion":"","indicationsQuestion":"","avoirJustificationYN":false,"typeQuestion":1,"scoreTotal":10,"caratereAccepte":0,"nbreValeurMinimal":-1,"nbreCaratereMaximal":-1,"qPrecedent":"","qSuivant":""},
+  {"codeQuestion":2,"libelle":"Q2 : Quel est le principal matériau des murs ?","detailsQuestion":"","indicationsQuestion":"","avoirJustificationYN":true,"typeQuestion":1,"scoreTotal":10,"caratereAccepte":0,"nbreValeurMinimal":-1,"nbreCaratereMaximal":-1,"qPrecedent":"","qSuivant":""},
+  {"codeQuestion":3,"libelle":"Q3: Quel est le principal matériau du toit ?","detailsQuestion":"","indicationsQuestion":"","avoirJustificationYN":true,"typeQuestion":1,"scoreTotal":10,"caratereAccepte":0,"nbreValeurMinimal":-1,"nbreCaratereMaximal":-1,"qPrecedent":"","qSuivant":""},
+  {"codeQuestion":4,"libelle":"Dans cet espace, il y a :","detailsQuestion":"","indicationsQuestion":"","avoirJustificationYN":true,"typeQuestion":1,"scoreTotal":10,"caratereAccepte":0,"nbreValeurMinimal":-1,"nbreCaratereMaximal":-1,"qPrecedent":"","qSuivant":""}
+
+]

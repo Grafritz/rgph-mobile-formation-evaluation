@@ -1,0 +1,1 @@
+include ':app', ':rgph-formation-evaluation-dao-generator'

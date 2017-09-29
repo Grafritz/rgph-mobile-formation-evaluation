@@ -1,0 +1,18 @@
+[
+
+  {"codeQuestion":1,"codeReponse":1,"libelleReponse":"1. Observer le bâtiment","isCorrect":true,"estEnfant":false,"avoirEnfant":false,"codeParent":""},
+  {"codeQuestion":1,"codeReponse":2,"libelleReponse":"2. Questionner le Chef de ménage","isCorrect":false,"estEnfant":false,"avoirEnfant":false,"codeParent":""},
+  {"codeQuestion":1,"codeReponse":3,"libelleReponse":"3. a et b","isCorrect":false,"estEnfant":false,"avoirEnfant":false,"codeParent":""},
+  {"codeQuestion":2,"codeReponse":4,"libelleReponse":"Roches","isCorrect":true,"estEnfant":false,"avoirEnfant":false,"codeParent":""},
+  {"codeQuestion":2,"codeReponse":5,"libelleReponse":"Bloc","isCorrect":false,"estEnfant":false,"avoirEnfant":false,"codeParent":""},
+  {"codeQuestion":2,"codeReponse":6,"libelleReponse":"Bloc et roches","isCorrect":false,"estEnfant":false,"avoirEnfant":false,"codeParent":""},
+  {"codeQuestion":3,"codeReponse":7,"libelleReponse":"Béton","isCorrect":true,"estEnfant":false,"avoirEnfant":false,"codeParent":""},
+  {"codeQuestion":3,"codeReponse":8,"libelleReponse":"Tôle","isCorrect":false,"estEnfant":false,"avoirEnfant":false,"codeParent":""},
+  {"codeQuestion":3,"codeReponse":9,"libelleReponse":"Béton et tôle","isCorrect":false,"estEnfant":false,"avoirEnfant":false,"codeParent":""},
+  {"codeQuestion":4,"codeReponse":10,"libelleReponse":"Un (1) bâtiment comportant un (1) logement collectif","isCorrect":true,"estEnfant":false,"avoirEnfant":false,"codeParent":""},
+  {"codeQuestion":4,"codeReponse":11,"libelleReponse":"Un (1) bâtiment comportant un (1) logement collectif et un (1) logement individuel","isCorrect":false,"estEnfant":false,"avoirEnfant":false,"codeParent":""},
+  {"codeQuestion":4,"codeReponse":12,"libelleReponse":"Un (1) bâtiment comportant un (1) logement collectif et deux (2) logements individuels","isCorrect":false,"estEnfant":false,"avoirEnfant":false,"codeParent":""},
+  {"codeQuestion":4,"codeReponse":13,"libelleReponse":"Deux (2) bâtiments comportant chacun un (1) logement collectif","isCorrect":false,"estEnfant":false,"avoirEnfant":false,"codeParent":""}
+
+
+]
