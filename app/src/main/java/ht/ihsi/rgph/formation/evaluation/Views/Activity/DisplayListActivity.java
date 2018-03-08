@@ -81,9 +81,7 @@ public class DisplayListActivity extends BaseActivity {
             listType = listTypeUse = Integer.valueOf(intent.getStringExtra(Constant.PARAM_TYPE_FORMULAIRE)).intValue();
 
             //moduleStatut = Short.valueOf(intent.getStringExtra(Constant.PARAM_MODULE_STATUT));
-
             //moduleStatutString = Tools.getStringStatut(moduleStatut);
-
             //rowDataListModel = (RowDataListModel) intent.getSerializableExtra(Constant.PARAM_MODEL);
             /*if (listType != Constant.LIST_MODULE_BATIMENT
                     || listType != Constant.LIST_MODULE_COMPTE_UTILISATEUR_16) {
