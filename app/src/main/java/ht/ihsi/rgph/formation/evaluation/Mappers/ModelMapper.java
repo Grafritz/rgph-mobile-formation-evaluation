@@ -85,7 +85,7 @@ public class ModelMapper {
     public static Agent_Evaluation_Exercices MapTo(Agent_Evaluation_ExercicesModel entity) {
         Agent_Evaluation_Exercices m = new Agent_Evaluation_Exercices();
         m.setCodeExercice(entity.getCodeExercice()) ;
-        m.setPersonnelId(entity.getCodeExercice());
+        m.setPersonnelId(entity.getPersonnelId());
         m.setDureeEvaluationEnSeconde(entity.getDureeEvaluationEnSeconde());
         m.setDureeDuRepondantEnSeconde(entity.getDureeDuRepondantEnSeconde());
         m.setDateDebutEvaluationDuRepondant(entity.getDateDebutEvaluationDuRepondant());

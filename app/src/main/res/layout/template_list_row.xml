@@ -22,8 +22,7 @@
         android:background="@drawable/border_shadow"
         android:shadowDx="2"
         android:shadowDy="2"
-        android:shadowRadius="1.0"
-        android:scaleType="centerCrop" />
+        android:shadowRadius="1.0" />
 
     <TextView
         android:id="@+id/title"

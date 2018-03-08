@@ -18,9 +18,12 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import ht.ihsi.rgph.formation.evaluation.Constant.Constant;
 import ht.ihsi.rgph.formation.evaluation.Exceptions.ManagerException;
 import ht.ihsi.rgph.formation.evaluation.Exceptions.TextEmptyException;
 import ht.ihsi.rgph.formation.evaluation.Managers.FormDataMngrImpl;
+import ht.ihsi.rgph.formation.evaluation.Managers.QueryRecordMngr;
+import ht.ihsi.rgph.formation.evaluation.Managers.QueryRecordMngrImpl;
 import ht.ihsi.rgph.formation.evaluation.Models.Agent_Evaluation_ExercicesModel;
 import ht.ihsi.rgph.formation.evaluation.Models.FormulaireExercicesModel;
 import ht.ihsi.rgph.formation.evaluation.Models.RowDataListModel;
@@ -154,14 +157,20 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
             int icon=getIcon();
             Picasso.with(context).load(icon).placeholder(icon)
                     .into(this.imageView);
-
             Picasso.with(context).load(R.drawable.dots_vertical).placeholder(R.drawable.dots_vertical)
                     .into(this.overflowIcon);
+            this.overflowIcon.setVisibility(View.VISIBLE);
 
             FormulaireExercicesModel formExercicesModel = (FormulaireExercicesModel) row.getModel();
-            if( !formExercicesModel.getIsReadyToEvaluate() ){
-                Picasso.with(context).load(icon).placeholder(R.drawable.ic_doc_star)
+
+            if( getAgentCanGoToEvaluation(formExercicesModel.getCodeExercice()) ){//if( formExercicesModel.getStatut() == Constant.OUI_1){
+                Picasso.with(context).load(R.drawable.ic_doc_star).placeholder(R.drawable.ic_doc_star)
                         .into(this.imageView);
+                this.overflowIcon.setVisibility(View.GONE);
+            }else{
+                Picasso.with(context).load(R.drawable.ic_doc).placeholder(R.drawable.ic_doc)
+                        .into(this.imageView);
+                this.overflowIcon.setVisibility(View.VISIBLE);
             }
             this.title.setText(Html.fromHtml((row.getTitle())));
             this.desc.setText(Html.fromHtml(row.getDesc()));
@@ -170,7 +179,22 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
             }
 
         }
-
+        public boolean getAgentCanGoToEvaluation(long codeExercice) {
+            try{
+                QueryRecordMngr queryRecordMngr=new QueryRecordMngrImpl(context);
+                Agent_Evaluation_ExercicesModel aee = queryRecordMngr.getAgent_Evaluation_Exercices_ByIdAgent(codeExercice, getPersId);
+                if( aee!=null && aee.getCodeExercice()!=null ){
+                    return true;
+                }
+            } catch (ManagerException ex) {
+                Tools.LogCat("ManagerException-getAgentCanGoToEvaluation():  ", ex);
+                return false;
+            } catch (Exception ex) {
+                Tools.LogCat("Exception-getAgentCanGoToEvaluation():  ", ex);
+                return false;
+            }
+            return false;
+        }
         /*public boolean getAgentCanGoToEvaluation(FormulaireExercicesModel formExercicesModel) {
             try{
                 FormDataMngrImpl formDataMngr = new FormDataMngrImpl(context);

@@ -156,8 +156,8 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
                 RowDataListModel r = new RowDataListModel();
                 r.setId(fExercices.getCodeExercice());
                 r.setTitle("" + fExercices.getLibelleExercice());
-                String desc = "" + fExercices.getDescriptions().substring(0, 25) + "[...]"
-                        + " | <b>Durée :</b> " + fExercices.getDureeEnSeconde() + " Sec";
+                String desc = "" + fExercices.getDescriptions().substring(0, 25) + "[...] | ";
+                desc += "<b>Durée :</b> " + fExercices.getDureeEnSeconde() + " Sec";
                 r.setDesc(desc);
 
                 r.setIsComplete(true);

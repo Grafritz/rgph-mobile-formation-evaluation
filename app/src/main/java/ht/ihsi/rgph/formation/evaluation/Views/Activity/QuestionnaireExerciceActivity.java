@@ -378,12 +378,13 @@ public class QuestionnaireExerciceActivity extends BaseActivity implements Seria
 
     private void SaveAgent_Evaluation() {
         try{
+            String dateFinEvaluation = Tools.getDateString_MMddyyyy_HHmmss();
+
             Agent_Evaluation_ExercicesModel aee = new Agent_Evaluation_ExercicesModel();
             aee.setCodeExercice(QF.formExercicesModel.getCodeExercice());
-            aee.setDureeEvaluationEnSeconde(QF.formExercicesModel.getDureeEnSeconde());
             aee.setPersonnelId(getPersId);
+            aee.setDureeEvaluationEnSeconde(QF.formExercicesModel.getDureeEnSeconde());
             aee.setDateDebutEvaluationDuRepondant(QF.getDateDebutCollecte());
-            String dateFinEvaluation = Tools.getDateString_MMddyyyy_HHmmss();
             aee.setDateFinEvaluationDuRepondant(dateFinEvaluation);
             aee.setDureeDuRepondantEnSeconde(""+QF.getDureeSaisie(dateFinEvaluation));
 

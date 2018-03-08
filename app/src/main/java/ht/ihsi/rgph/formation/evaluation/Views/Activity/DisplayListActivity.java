@@ -68,7 +68,6 @@ public class DisplayListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_list);
         try {
-
             infoUser = Tools.SharedPreferences(this);
             if (infoUser != null && infoUser.getProfileId() != null) {
                 getPersId = infoUser.getPersId();
@@ -273,18 +272,24 @@ public class DisplayListActivity extends BaseActivity {
             if(listType == Constant.LIST_MODULE_EXERCICES){
                 if( row != null ) {
                     FormulaireExercicesModel formExercicesModel = (FormulaireExercicesModel) row.getModel();
+                    //On regarde pour voir si la personne a deja passe cette evaluation
 
-                    getAgentCanGoToEvaluation(formExercicesModel);
+                    //if( formExercicesModel.getStatut() == Constant.OUI_1){
+                        getAgentCanGoToEvaluation(formExercicesModel);
 
-                    QF = new QuestionnaireFormulaireUtility(formExercicesModel, formDataMngr);
+                        QF = new QuestionnaireFormulaireUtility(formExercicesModel, formDataMngr);
 
-                    QF.setDateDebutCollecte(dateString);
+                        QF.setDateDebutCollecte(dateString);
 
-                    intent = new Intent(this, QuestionnaireExerciceActivity.class);
-                    intent.putExtra(Constant.PARAM_QUESTIONNAIRE_FORMULAIRE, QF);
-                    //intent.putExtra(Constant.PARAM_FORM_HEADER_ONE, " " + formExercicesModel.ge());
-                    //intent.putExtra(Constant.PARAM_FORM_HEADER_TWO, "SDE: " + batimentModel.getSdeId());
-                    startActivity(intent);
+                        intent = new Intent(this, QuestionnaireExerciceActivity.class);
+                        intent.putExtra(Constant.PARAM_QUESTIONNAIRE_FORMULAIRE, QF);
+                        //intent.putExtra(Constant.PARAM_FORM_HEADER_ONE, " " + formExercicesModel.ge());
+                        //intent.putExtra(Constant.PARAM_FORM_HEADER_TWO, "SDE: " + batimentModel.getSdeId());
+                        startActivity(intent);
+                    /*}else{
+                        message ="Impossible d'acceder a cette exercice car elle est vérouillée par un participant. ";
+                        Tools.AlertDialogMsg(this, message);
+                    }*/
                 }
             }
 
