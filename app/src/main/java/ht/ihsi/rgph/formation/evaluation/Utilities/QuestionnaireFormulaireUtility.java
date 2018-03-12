@@ -810,7 +810,7 @@ public class QuestionnaireFormulaireUtility extends BaseModel {
             temp.setCodeFormulaireExercice(codeFormulaireExercice);
             temp.setCodeQuestion(codeQuestion);
             temp.setCodeReponse(codeReponse);
-            //temp.setCodeJustificationReponse(codeJustificationReponse);
+            temp.setCodeJustificationReponse(codeJustificationReponse);
             temp.setReponseSaisie(reponseSaisie);
             temp.setCreatedBy(spreferences.getNomUtilisateur());
             temp.setDateCreated(Tools.getDateString_MMddyyyy_HHmmss());
