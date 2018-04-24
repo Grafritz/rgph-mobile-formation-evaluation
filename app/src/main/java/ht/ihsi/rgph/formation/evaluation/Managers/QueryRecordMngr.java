@@ -21,6 +21,8 @@ import ht.ihsi.rgph.formation.evaluation.Utilities.Shared_Preferences;
     List<RowDataListModel> searchListProfilUser(Shared_Preferences SPref) throws ManagerException;
 
     List<RowDataListModel> searchList_FormulaireExercice() throws ManagerException;
+    List<RowDataListModel> searchList_FormulaireExercice_ByType(long typeExercice) throws ManagerException;
+   List<RowDataListModel> searchList_TypeExercice() throws ManagerException;
 
     Agent_Evaluation_ExercicesModel getAgent_Evaluation_Exercices_ByIdAgent(long idFormExercice, long idPersonnel) throws ManagerException;
 

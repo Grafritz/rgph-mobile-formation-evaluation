@@ -10,11 +10,13 @@ import de.greenrobot.dao.query.QueryBuilder;
 import ht.ihsi.rgph.formation.evaluation.Backend.DAOEntities.Agent_Evaluation_Exercices;
 import ht.ihsi.rgph.formation.evaluation.Backend.DAOEntities.Agent_Evaluation_ExercicesDao;
 import ht.ihsi.rgph.formation.evaluation.Backend.DAOEntities.FormulaireExercices;
+import ht.ihsi.rgph.formation.evaluation.Backend.DAOEntities.FormulaireExercicesDao;
 import ht.ihsi.rgph.formation.evaluation.Backend.DAOEntities.Personnel;
 import ht.ihsi.rgph.formation.evaluation.Exceptions.ManagerException;
 import ht.ihsi.rgph.formation.evaluation.Mappers.ModelMapper;
 import ht.ihsi.rgph.formation.evaluation.Models.Agent_Evaluation_ExercicesModel;
 import ht.ihsi.rgph.formation.evaluation.Models.FormulaireExercicesModel;
+import ht.ihsi.rgph.formation.evaluation.Models.KeyValueModel;
 import ht.ihsi.rgph.formation.evaluation.Models.RowDataListModel;
 import ht.ihsi.rgph.formation.evaluation.Utilities.Shared_Preferences;
 import ht.ihsi.rgph.formation.evaluation.Utilities.Tools;
@@ -84,8 +86,7 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
     public List<RowDataListModel> searchList_FormulaireExercice() throws ManagerException {
         List<RowDataListModel> result = null;
         try {
-            openReadableDb();
-            List<FormulaireExercices> formulaireExercices = daoSession.getFormulaireExercicesDao().queryBuilder().list();
+          List<FormulaireExercices> formulaireExercices = daoSession.getFormulaireExercicesDao().queryBuilder().list();
             result = MapToRows(formulaireExercices);
             daoSession.clear();
         }catch(Exception ex){
@@ -95,6 +96,36 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
         return result;
     }
 
+    @Override
+    public List<RowDataListModel> searchList_FormulaireExercice_ByType(long typeExercice) throws ManagerException {
+        List<RowDataListModel> result = null;
+        try {
+            openReadableDb();
+            List<FormulaireExercices> formulaireExercices = daoSession.getFormulaireExercicesDao().queryBuilder()
+                    .where(FormulaireExercicesDao.Properties.TypeEvaluation.eq(""+typeExercice))
+                    .list();
+            result = MapToRows(formulaireExercices);
+            daoSession.clear();
+        }catch(Exception ex){
+            Log.e(MANAGERS, "Exception <> unable to search All  searchList_FormulaireExercice_ByType: "+ex.getMessage());
+            throw  new ManagerException("<> unable to search All  searchList_FormulaireExercice_ByType ",ex);
+        }
+        return result;
+    }
+
+
+    @Override
+    public List<RowDataListModel> searchList_TypeExercice() throws ManagerException {
+        List<RowDataListModel> result = null;
+        try {
+            List<KeyValueModel> listTypeExercice = Tools.getList_TypeExercice();
+            result = MapToRowsKeyValue(listTypeExercice);
+        }catch(Exception ex){
+            //Log.e(MANAGERS, "Exception <> unable to search All  ListProfilUser: "+ex.getMessage());
+            throw  new ManagerException("<> unable to search All  searchList_TypeExercice ",ex);
+        }
+        return result;
+    }
 
     //endregion
 
@@ -156,7 +187,7 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
                 RowDataListModel r = new RowDataListModel();
                 r.setId(fExercices.getCodeExercice());
                 r.setTitle("" + fExercices.getLibelleExercice());
-                String desc = "" + fExercices.getDescriptions().substring(0, 25) + "[...] | ";
+                String desc = "";// + fExercices.getDescriptions().substring(0, 25) + "[...] | ";
                 desc += "<b>Durée :</b> " + fExercices.getDureeEnSeconde() + " Sec";
                 r.setDesc(desc);
 
@@ -169,6 +200,33 @@ public class QueryRecordMngrImpl extends AbstractDatabaseManager implements Quer
         } else {
         }
         return result;
+    }
+
+    public List<RowDataListModel> MapToRowsKeyValue(List<KeyValueModel> keyValueModels) {
+        List<RowDataListModel> result = new ArrayList<>();
+        if (keyValueModels != null && keyValueModels.size() > 0) {
+            for (KeyValueModel valueModel : keyValueModels) {
+                RowDataListModel r = new RowDataListModel();
+                r.setId(Long.parseLong(valueModel.getKey()));
+                r.setTitle("" + valueModel.getValue());
+                String desc = "";
+                r.setDesc(desc);
+
+                r.setIsComplete(true);
+                r.setIsModuleMenu(false);
+                //r.setModel(MapTo(valueModel));
+                r.setModel(MapTo(valueModel));
+
+                result.add(r);
+            }
+        } else {
+        }
+        return result;
+    }
+
+    public KeyValueModel MapTo(KeyValueModel entity) {
+        KeyValueModel m = new KeyValueModel(entity.getKey(),entity.getValue());
+        return m;
     }
 
     public FormulaireExercicesModel MapTo(FormulaireExercices entity) {

@@ -27,6 +27,7 @@ import ht.ihsi.rgph.formation.evaluation.Exceptions.TextEmptyException;
 import ht.ihsi.rgph.formation.evaluation.Managers.FormDataMngr;
 import ht.ihsi.rgph.formation.evaluation.Models.Agent_Evaluation_ExercicesModel;
 import ht.ihsi.rgph.formation.evaluation.Models.FormulaireExercicesModel;
+import ht.ihsi.rgph.formation.evaluation.Models.KeyValueModel;
 import ht.ihsi.rgph.formation.evaluation.Models.Question_FormulaireExercicesModel;
 import ht.ihsi.rgph.formation.evaluation.Models.RowDataListModel;
 import ht.ihsi.rgph.formation.evaluation.R;
@@ -62,6 +63,7 @@ public class DisplayListActivity extends BaseActivity {
     String StringHeaderTwo;
     private RowDataListModel rowDataListModel = null;
     public Dialog dialog;
+    public KeyValueModel keyValueModel=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +81,16 @@ public class DisplayListActivity extends BaseActivity {
             StringHeaderTwo = intent.getStringExtra(Constant.PARAM_SOUS_TITRE_HEADER_TWO).toString();
             listType = listTypeUse = Integer.valueOf(intent.getStringExtra(Constant.PARAM_TYPE_FORMULAIRE)).intValue();
 
+            if( listType == Constant.LIST_TYPE_EXERCICE ){
+                //keyValueModel = (KeyValueModel) rowDataListModel.getModel();
+
+            }else  if( listType == Constant.LIST_MODULE_EXERCICES ){
+                //rowDataListModel = (RowDataListModel) intent.getSerializableExtra(Constant.PARAM_MODEL);
+                id = Long.valueOf(intent.getStringExtra(Constant.PARAM_ID)).longValue();
+
+            }
             //moduleStatut = Short.valueOf(intent.getStringExtra(Constant.PARAM_MODULE_STATUT));
             //moduleStatutString = Tools.getStringStatut(moduleStatut);
-            //rowDataListModel = (RowDataListModel) intent.getSerializableExtra(Constant.PARAM_MODEL);
             /*if (listType != Constant.LIST_MODULE_BATIMENT
                     || listType != Constant.LIST_MODULE_COMPTE_UTILISATEUR_16) {
                 id = Long.valueOf(intent.getStringExtra(Constant.PARAM_MODULE_ID)).longValue();
@@ -215,6 +224,8 @@ public class DisplayListActivity extends BaseActivity {
                             new AsynDisplayDataListTask().execute();
                         }
                     }*/
+                }else if (listType == Constant.LIST_TYPE_EXERCICE) {
+
                 }
             }
         } catch (Exception ex) {
@@ -291,8 +302,19 @@ public class DisplayListActivity extends BaseActivity {
                         Tools.AlertDialogMsg(this, message);
                     }*/
                 }
+            }else if (listType == Constant.LIST_TYPE_EXERCICE) {
+                if( row != null ) {
+                    KeyValueModel keyValueModel = (KeyValueModel) row.getModel();
+                    intent = new Intent(this, DisplayListActivity.class);
+                    intent.putExtra(Constant.PARAM_ACTION_BAR_TITLE, "" + getString(R.string.label_Exercices) + " " + Tools.getString_TypeExercice(keyValueModel.getKey()));
+                    intent.putExtra(Constant.PARAM_GRAND_TITRE_HEADER_ONE, "");
+                    intent.putExtra(Constant.PARAM_SOUS_TITRE_HEADER_TWO, "");
+                    intent.putExtra(Constant.PARAM_TYPE_FORMULAIRE, "" + Constant.LIST_MODULE_EXERCICES);
+                    //intent.putExtra(Constant.PARAM_MODULE_STATUT, keyValueModel);
+                    intent.putExtra(Constant.PARAM_ID, ""+keyValueModel.getKey());
+                    startActivity(intent);
+                }
             }
-
         }catch (TextEmptyException ex) {
             Tools.AlertDialogMsg(this, ex.getMessage());
             Tools.LogCat("TextEmptyException: Suivant_Click() :" + ex);
@@ -343,8 +365,12 @@ public class DisplayListActivity extends BaseActivity {
                     //message = "Pa gen Batiman nan sistèm nan.";
                 //}
                 if ( listType == Constant.LIST_MODULE_EXERCICES ) {
-                    rowDataList = queryRecordMngr.searchList_FormulaireExercice();
+                    //rowDataList = queryRecordMngr.searchList_FormulaireExercice();
+                    rowDataList = queryRecordMngr.searchList_FormulaireExercice_ByType(id);
                     message = "Pas d'exercice dans la Base de données.";
+
+                }else if (listType == Constant.LIST_TYPE_EXERCICE) {
+                    rowDataList = queryRecordMngr.searchList_TypeExercice();
                 }
                 if( rowDataList != null ){
                     targetList.addAll(rowDataList);
@@ -385,7 +411,7 @@ public class DisplayListActivity extends BaseActivity {
             nbrsave = targetList.size();
 
         if (listType == Constant.LIST_MODULE_EXERCICES) {
-            list_header_1.setText(getString(R.string.label_Exercices) /*+ " "+ moduleStatutString */+ " [" + nbrsave + "]");
+            list_header_1.setText(title + " [" + nbrsave + "]");
 
         //} else if(listType == Constant.LIST_MODULE_COMPTE_UTILISATEUR_16){
         //    list_header_1.setText(getString(R.string.label_Kont_Itilizate) + " "+ moduleStatutString + " [" + nbrsave + "]");

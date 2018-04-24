@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"><![CDATA[IHSI - Formation & Evaluation]]></string>
+    <string name="app_name"><![CDATA[IHSI - Evaluation]]></string>
     <string name="label_app_name"><![CDATA[Formation & Evaluation]]></string>
     <string name="label_NomInstitution">Institut Haitien de Statistique et d\'Informatique</string>
     <string name="label_SigleIHSI">IHSI</string>
@@ -66,6 +66,7 @@
     <string name="label_GroupeUtilisateur">Groupe Utilisateur</string>
     <string name="label_Exercices">Exercices</string>
     <string name="label_Exercicesdentrainement">Exercices d\'entraînement</string>
+    <string name="label_TypeExercices">Type Exercices</string>
     <string name="label_Quitter">Quitter</string>
 
     <string name="label_QuestionPrecedente">Retour</string>
@@ -122,6 +123,7 @@
     <string name="label_DescriptionsExercice">Texte</string>
     <string name="label_Fin">Fin</string>
     <string name="msg_Confirmation_Abandonner">Voulez-vous vraiment quitter les autres questions...?\n\nN.B.- Cette action est irréversible...</string>
+    <string name="label_VoirLaListeDesExercices">Voir la liste des Exercices</string>
 
 
 </resources>

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import ht.ihsi.rgph.formation.evaluation.Backend.DAOEntities.PersonnelDao;
 import ht.ihsi.rgph.formation.evaluation.Constant.Constant;
@@ -197,6 +198,41 @@ public class Tools {
             return result;
         }catch (Exception ex) {
             LogCat("Exception-getString_Reponse("+ codeReponse +"): getMessage: ", ex);
+            ex.printStackTrace();
+        }
+        return "";
+    }
+    public static List<KeyValueModel> getList_TypeExercice() {
+        try{
+            ArrayList<KeyValueModel> keyValueModels = new ArrayList<KeyValueModel>();
+            keyValueModels.add(new KeyValueModel("" + Constant.EXERCICE_ENTRAINEMENT_1, "Entrainement"));
+            keyValueModels.add(new KeyValueModel("" + Constant.EXERCICE_FORMATIVE_2, "Formative"));
+            keyValueModels.add(new KeyValueModel("" + Constant.EXERCICE_SOMMATIVE_3, "Sommative"));
+            keyValueModels.add(new KeyValueModel("" + Constant.EXERCICE_OBSERVATION_4, "Observation"));
+
+            return keyValueModels;
+        }catch (Exception ex) {
+            LogCat("Exception-getList_TypeExercice(): ", ex);
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    public static String getString_TypeExercice(String key) {
+        try{
+            String result="";
+            List<KeyValueModel> keyValueModels = getList_TypeExercice();
+
+            if ( keyValueModels != null  && keyValueModels.size()>0){
+                for(KeyValueModel ke : keyValueModels){
+                    if( ke.getKey().equalsIgnoreCase(key)){
+                        result = ke.getValue();
+                        break;
+                    }
+                }
+            }
+            return result;
+        }catch (Exception ex) {
+            LogCat("Exception-getString_TypeExercice: ", ex);
             ex.printStackTrace();
         }
         return "";

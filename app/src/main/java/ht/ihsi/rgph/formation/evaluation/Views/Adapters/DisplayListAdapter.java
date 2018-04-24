@@ -26,6 +26,7 @@ import ht.ihsi.rgph.formation.evaluation.Managers.QueryRecordMngr;
 import ht.ihsi.rgph.formation.evaluation.Managers.QueryRecordMngrImpl;
 import ht.ihsi.rgph.formation.evaluation.Models.Agent_Evaluation_ExercicesModel;
 import ht.ihsi.rgph.formation.evaluation.Models.FormulaireExercicesModel;
+import ht.ihsi.rgph.formation.evaluation.Models.KeyValueModel;
 import ht.ihsi.rgph.formation.evaluation.Models.RowDataListModel;
 import ht.ihsi.rgph.formation.evaluation.R;
 import ht.ihsi.rgph.formation.evaluation.Utilities.Tools;
@@ -160,23 +161,45 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
             Picasso.with(context).load(R.drawable.dots_vertical).placeholder(R.drawable.dots_vertical)
                     .into(this.overflowIcon);
             this.overflowIcon.setVisibility(View.VISIBLE);
+            if( listType == Constant.LIST_TYPE_EXERCICE ){
+                KeyValueModel keyValueModel = (KeyValueModel) row.getModel();
 
-            FormulaireExercicesModel formExercicesModel = (FormulaireExercicesModel) row.getModel();
+                if( keyValueModel.getKey() == ""+Constant.EXERCICE_ENTRAINEMENT_1 ){
+                    Picasso.with(context).load(R.drawable.ic_eva_entrainement).placeholder(R.drawable.ic_eva_entrainement).into(this.imageView);
 
-            if( getAgentCanGoToEvaluation(formExercicesModel.getCodeExercice()) ){//if( formExercicesModel.getStatut() == Constant.OUI_1){
-                Picasso.with(context).load(R.drawable.ic_doc_star).placeholder(R.drawable.ic_doc_star)
-                        .into(this.imageView);
-                this.overflowIcon.setVisibility(View.GONE);
-            }else{
-                Picasso.with(context).load(R.drawable.ic_doc).placeholder(R.drawable.ic_doc)
-                        .into(this.imageView);
+                }else if( keyValueModel.getKey() == ""+Constant.EXERCICE_FORMATIVE_2 ){
+                    Picasso.with(context).load(R.drawable.ic_eva_formative).placeholder(R.drawable.ic_eva_formative).into(this.imageView);
+
+                }else if( keyValueModel.getKey() == ""+Constant.EXERCICE_SOMMATIVE_3 ){
+                    Picasso.with(context).load(R.drawable.ic_eva_somrmative).placeholder(R.drawable.ic_eva_somrmative).into(this.imageView);
+
+                }else if( keyValueModel.getKey() == ""+Constant.EXERCICE_OBSERVATION_4 ){
+                    Picasso.with(context).load(R.drawable.ic_eva_observation).placeholder(R.drawable.ic_eva_observation).into(this.imageView);
+                }
                 this.overflowIcon.setVisibility(View.VISIBLE);
+                this.title.setText(Html.fromHtml((row.getTitle())));
+                this.desc.setText(Html.fromHtml(row.getDesc()));
+                this.desc.setVisibility(View.GONE);
+
+            }else  if( listType == Constant.LIST_MODULE_EXERCICES ){
+                FormulaireExercicesModel formExercicesModel = (FormulaireExercicesModel) row.getModel();
+
+                if( getAgentCanGoToEvaluation(formExercicesModel.getCodeExercice()) ){//if( formExercicesModel.getStatut() == Constant.OUI_1){
+                    Picasso.with(context).load(R.drawable.ic_doc_star).placeholder(R.drawable.ic_doc_star)
+                            .into(this.imageView);
+                    this.overflowIcon.setVisibility(View.GONE);
+                }else{
+                    Picasso.with(context).load(R.drawable.ic_doc).placeholder(R.drawable.ic_doc)
+                            .into(this.imageView);
+                    this.overflowIcon.setVisibility(View.VISIBLE);
+                }
+                this.title.setText(Html.fromHtml((row.getTitle())));
+                this.desc.setText(Html.fromHtml(row.getDesc()));
+                if(row.isEmpty()){
+                    overflowIcon.setVisibility(View.INVISIBLE);
+                }
             }
-            this.title.setText(Html.fromHtml((row.getTitle())));
-            this.desc.setText(Html.fromHtml(row.getDesc()));
-            if(row.isEmpty()){
-                overflowIcon.setVisibility(View.INVISIBLE);
-            }
+
 
         }
         public boolean getAgentCanGoToEvaluation(long codeExercice) {

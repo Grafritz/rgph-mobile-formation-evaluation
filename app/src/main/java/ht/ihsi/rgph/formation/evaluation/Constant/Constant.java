@@ -46,7 +46,12 @@ import android.view.Gravity;
     //region MODULE NAME
     int LIST_MODULE_EXERCICES = 1;
     int LIST_COMPTE_UTILISATEUR = 2;
+    int LIST_TYPE_EXERCICE = 3;
     //endregion
+    int EXERCICE_ENTRAINEMENT_1 = 1;
+    int EXERCICE_FORMATIVE_2 = 2;
+    int EXERCICE_SOMMATIVE_3 = 3;
+    int EXERCICE_OBSERVATION_4 = 4;
 
 
     //region []

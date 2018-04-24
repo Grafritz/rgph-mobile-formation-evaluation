@@ -131,15 +131,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 case R.id.btn_FomulaireExercicesListe:
                     CheckPrefIsUseConnected(true);
                     if (!cancel) {
-                        //showListView(getString(R.string.label_Exercicesdentrainement), Constant.LIST_MODULE_EXERCICES, 0, 0);
                         intent = new Intent(this, DisplayListActivity.class);
+                        intent.putExtra(Constant.PARAM_ACTION_BAR_TITLE, ""+getString(R.string.label_TypeExercices));
+                        intent.putExtra(Constant.PARAM_GRAND_TITRE_HEADER_ONE, "");
+                        intent.putExtra(Constant.PARAM_SOUS_TITRE_HEADER_TWO, "");
+                        intent.putExtra(Constant.PARAM_TYPE_FORMULAIRE, "" + Constant.LIST_TYPE_EXERCICE);
+                        intent.putExtra(Constant.PARAM_MODULE_STATUT, "" );
+                        intent.putExtra(Constant.PARAM_ID, "" );
+                        startActivity(intent);
+
+                        /*intent = new Intent(this, DisplayListActivity.class);
                         intent.putExtra(Constant.PARAM_ACTION_BAR_TITLE, ""+getString(R.string.label_Exercicesdentrainement));
                         intent.putExtra(Constant.PARAM_GRAND_TITRE_HEADER_ONE, "");
                         intent.putExtra(Constant.PARAM_SOUS_TITRE_HEADER_TWO, "");
                         intent.putExtra(Constant.PARAM_TYPE_FORMULAIRE, "" + Constant.LIST_MODULE_EXERCICES);
                         intent.putExtra(Constant.PARAM_MODULE_STATUT, "" );
                         intent.putExtra(Constant.PARAM_ID, "" );
-                        startActivity(intent);
+                        startActivity(intent);*/
                     }
                     break;
                 case R.id.btn_Connexion:
