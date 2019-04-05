@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -28,7 +27,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ht.ihsi.rgph.formation.evaluation.Constant.Constant;
-import ht.ihsi.rgph.formation.evaluation.Exceptions.ManagerException;
 import ht.ihsi.rgph.formation.evaluation.Exceptions.TextEmptyException;
 import ht.ihsi.rgph.formation.evaluation.Managers.CURecordMngr;
 import ht.ihsi.rgph.formation.evaluation.Managers.FormDataMngr;
@@ -37,7 +35,6 @@ import ht.ihsi.rgph.formation.evaluation.Models.BaseModel;
 import ht.ihsi.rgph.formation.evaluation.Models.FormulaireExercicesModel;
 import ht.ihsi.rgph.formation.evaluation.Models.JustificationReponsesModel;
 import ht.ihsi.rgph.formation.evaluation.Models.KeyValueModel;
-import ht.ihsi.rgph.formation.evaluation.Models.Question_FormulaireExercicesModel;
 import ht.ihsi.rgph.formation.evaluation.Models.QuestionsModel;
 import ht.ihsi.rgph.formation.evaluation.Models.ReponseEntreeModel;
 import ht.ihsi.rgph.formation.evaluation.Models.ReponsesModel;
@@ -71,13 +68,18 @@ public class QuestionnaireFormulaireUtility extends BaseModel {
     private boolean avoirJustificationYN;
     private int typeQuestion;
     private int contrainteQuestion;
-    private int scoreTotal;
+    private double scoreTotalQuestion;
     private int caratereAccepte;
     private int nbreValeurMinimal;
     private int nbreCaratereMaximal;
     private String contrainteSautChampsValeur;
     private String qPrecedent;
     private String qSuivant;
+
+    public long codeAgentEvaluationExercices=0;
+    public long codeRapportResultat=0;
+    public double scoreTotalFormulaire=0;
+    public double scoreFinalAtteint=0;
 
     public int NbChar;
 
@@ -150,9 +152,9 @@ public class QuestionnaireFormulaireUtility extends BaseModel {
         try {
             //this.formDataMngr = formDataMngr;
             this.formExercicesModel = formExercicesModel;
+            this.scoreTotalFormulaire = formExercicesModel.getScoreFormulaire();
 
             tempReponseEntreeModel = new ArrayList<ReponseEntreeModel>();
-
             // Rechercher de la liste des question pour un Formulaire bien specifique
             this.questionsModelList = formDataMngr.getListAllQuestions_ByidFormExercices(formExercicesModel.getCodeExercice());
 
@@ -176,7 +178,7 @@ public class QuestionnaireFormulaireUtility extends BaseModel {
             this.codeQuestion = Q.getCodeQuestion();
             this.avoirJustificationYN = Q.getAvoirJustificationYN();
             this.typeQuestion = Q.getTypeQuestion();
-            this.scoreTotal = Q.getScoreTotal();
+            this.scoreTotalQuestion = Q.getScoreTotal();
             this.caratereAccepte = Q.getCaratereAccepte();
             this.qPrecedent = Q.getQPrecedent();
             this.qSuivant = Q.getQSuivant();
@@ -745,6 +747,7 @@ public class QuestionnaireFormulaireUtility extends BaseModel {
             , RecyclerView recyclerViewReponse, ReponsesModel codeReponseRecyclerView, KeyValueModel codeReponseKeyValueModel
     ) throws TextEmptyException {
         try {
+            boolean isReponseCorrect=false, isJustificationCorrect=false;
             String _message = "", ValReponseSaisie="";
             long ValReponse = 0, ValJustificationReponse = 0;
             ReponsesModel reponseModel = null, reponseModel2 = null;
@@ -757,12 +760,27 @@ public class QuestionnaireFormulaireUtility extends BaseModel {
                 if ( ValReponse <= 0 ) {
                     throw new TextEmptyException(context.getString(R.string.msg_Reponse_Ou_Dwe_Chwazi_Yon_Repons));
                 }
+                if( reponseModel.getIsCorrect() ){
+                    isReponseCorrect=true;
+                }else{
+                    isReponseCorrect=false;
+                }
                 if( this.avoirJustificationYN  ){
                     justificationReponsesModel = ((JustificationReponsesModel) sp_Reponse2.getSelectedItem());
                     ValJustificationReponse = justificationReponsesModel.getCodeJustification();
                     if ( ValJustificationReponse <= 0 ) {
                         throw new TextEmptyException(context.getString(R.string.msg_Ou_Dwe_Chwazi_Yon_JustificationRepons));
                     }
+                    if( justificationReponsesModel.getIsCorrect() ){
+                        isJustificationCorrect=true;
+                    }else{
+                        isJustificationCorrect=false;
+                    }
+                }else{
+                    isJustificationCorrect=true;
+                }
+                if( isJustificationCorrect && isReponseCorrect){
+                    this.scoreFinalAtteint += this.scoreTotalQuestion;
                 }
             } else if ( typeQuestion == Constant.TYPE_QUESTION_SAISIE_2 ) {
                 this.Check_DataField_EditText(et_Reponse);
@@ -818,6 +836,9 @@ public class QuestionnaireFormulaireUtility extends BaseModel {
 
             InsertReponseEntree(cuRecordMngr, temp);
 
+            //SaveAgent_Evaluation(cuRecordMngr);
+            //SaveRapportResultat(cuRecordMngr);
+
         } catch (Exception ex) {
             Tools.LogCat("Exception-CheckValueBefore(): getMessage: ", ex);
             throw ex;
@@ -832,11 +853,32 @@ public class QuestionnaireFormulaireUtility extends BaseModel {
         }
     }
 
-    public void InsertAgent_Evaluation(CURecordMngr cuRecordMngr, Agent_Evaluation_ExercicesModel reponseEntreeModel) {
+    public void SaveAgent_Evaluation(CURecordMngr cuRecordMngr) throws Exception{
         try{
-            cuRecordMngr.InsertAgent_Evaluation_Exercices(reponseEntreeModel);
+            String dateFinEvaluation = Tools.getDateString_MMddyyyy_HHmmss();
+            Shared_Preferences spreferences = Tools.SharedPreferences(context);
+
+            long personnelId = spreferences.getPersId();
+
+            Agent_Evaluation_ExercicesModel aee = new Agent_Evaluation_ExercicesModel();
+            aee.setCodeExercice(this.formExercicesModel.getCodeExercice());
+            aee.setPersonnelId(personnelId);
+
+            aee.setCodeFormulaireExercice( this.formExercicesModel.getCodeExercice() );
+            aee.setScoreFinalAtteint(""+this.scoreFinalAtteint);
+            aee.setScoreTotalFormulaire( ""+this.formExercicesModel.getScoreFormulaire() );
+
+            aee.setDureeEvaluationEnSeconde(this.formExercicesModel.getDureeEnSeconde());
+            aee.setDateDebutEvaluationDuRepondant(this.getDateDebutCollecte());
+            aee.setDateFinEvaluationDuRepondant(dateFinEvaluation);
+            aee.setDureeDuRepondantEnSeconde(""+this.getDureeSaisie(dateFinEvaluation));
+
+            aee =  cuRecordMngr.SaveAgent_Evaluation_Exercices(aee, this.codeAgentEvaluationExercices);
+            this.codeAgentEvaluationExercices = aee.getCodeAgentEvaluationExercices();
+
         } catch (Exception ex) {
-            Tools.LogCat("Exception-InsertAgent_Evaluation(): ", ex);
+            Tools.LogCat("Exception::SaveAgent_Evaluation ", ex);
+            throw ex;
         }
     }
 

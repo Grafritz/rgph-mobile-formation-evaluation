@@ -47,6 +47,8 @@ import android.view.Gravity;
     int LIST_MODULE_EXERCICES = 1;
     int LIST_COMPTE_UTILISATEUR = 2;
     int LIST_TYPE_EXERCICE = 3;
+    int LIST_RESULTAT_EXERCICE = 4;
+    int LIST_RESULTAT_EXERCICE_PAR_AGENT = 5;
     //endregion
     int EXERCICE_ENTRAINEMENT_1 = 1;
     int EXERCICE_FORMATIVE_2 = 2;

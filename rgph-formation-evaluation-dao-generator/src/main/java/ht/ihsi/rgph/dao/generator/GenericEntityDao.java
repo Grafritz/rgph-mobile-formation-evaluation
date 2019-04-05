@@ -8,7 +8,6 @@ import de.greenrobot.daogenerator.Entity;
 
 public class GenericEntityDao {
 
-
     public static void createPersonnelEntity(Entity entity){
         entity.addLongProperty("persId").columnName("persId").primaryKey();
         entity.addStringProperty("sdeId").columnName("sdeId");
@@ -29,6 +28,63 @@ public class GenericEntityDao {
         entity.addStringProperty("dateFinCollecte").columnName("dateFinCollecte");
     }
 
+
+    //region [ Planification Formation ]
+    public static void createFormationEntity(Entity entity){
+        entity.addLongProperty("formationId").columnName("formationId").primaryKey();
+        entity.addStringProperty("titreFormation").columnName("titreFormation");
+        entity.addShortProperty("niveauFormation").columnName("niveauFormation");
+        entity.addIntProperty("duree").columnName("duree");
+        entity.addStringProperty("dateDebut").columnName("dateDebut");
+        entity.addStringProperty("dateFin").columnName("dateFin");
+    }
+
+    public static void createCentreFormationEntity(Entity entity){
+        entity.addLongProperty("centreFormationId").columnName("centreFormationId").primaryKey();
+        entity.addStringProperty("nomCentre").columnName("nomCentre");
+        entity.addStringProperty("deptId").columnName("deptId");
+        entity.addStringProperty("comId").columnName("comId");
+        entity.addStringProperty("vqseId").columnName("vqseId");
+        entity.addStringProperty("adresse").columnName("adresse");
+        entity.addStringProperty("responsable").columnName("responsable");
+    }
+
+    public static void createSalleFormationEntity(Entity entity){
+        entity.addLongProperty("salleFormationId").columnName("salleFormationId").primaryKey();
+        entity.addLongProperty("centreFormationId").columnName("centreFormationId");
+        entity.addStringProperty("nomSalle").columnName("nomSalle");
+        entity.addIntProperty("capaciteSalle").columnName("capaciteSalle");
+    }
+
+    public static void createFormation_CentreFormationEntity(Entity entity){
+        entity.addLongProperty("formationCentreFormationId").columnName("formationCentreFormationId").primaryKey();
+        entity.addLongProperty("formationId").columnName("formationId");
+        entity.addLongProperty("centreFormationId").columnName("centreFormationId");
+        entity.addShortProperty("statut").columnName("statut");
+    }
+
+    public static void createFormateurParticipant_Salle_FormationEntity(Entity entity){
+        entity.addLongProperty("formateurSalleFormationId").columnName("formateurSalleFormationId").primaryKey();
+        entity.addLongProperty("centreFormationId").columnName("centreFormationId");
+        entity.addLongProperty("salleFormationId").columnName("salleFormationId");
+        entity.addLongProperty("personnelId").columnName("personnelId");
+        entity.addIntProperty("typePersonne").columnName("typePersonne");
+    }
+
+    public static void createSeanceFormationEntity(Entity entity){
+        entity.addLongProperty("seanceFormationId").columnName("seanceFormationId").primaryKey();
+        entity.addLongProperty("formationId").columnName("formationId");
+        entity.addStringProperty("nomSeance").columnName("nomSeance");
+        entity.addStringProperty("dateSeance").columnName("dateSeance");
+        entity.addIntProperty("jour").columnName("jour");
+        entity.addStringProperty("heureDebut").columnName("heureDebut");
+        entity.addStringProperty("heureDeFin").columnName("heureDeFin");
+        entity.addShortProperty("domaine").columnName("domaine");
+        entity.addShortProperty("typeSeance").columnName("typeSeance");
+    }
+    //endregion
+
+    //region [ Q-Evaluation ]
     public static void createFormulaireExercicesEntity(Entity entity){
         entity.addLongProperty("codeExercice").columnName("codeExercice").primaryKey();
         entity.addStringProperty("libelleExercice").columnName("libelleExercice");
@@ -42,17 +98,8 @@ public class GenericEntityDao {
         //entity.addStringProperty("dateCreated").columnName("dateCreated");
     }
 
-    public static void createAgentEvaluationExercicesEntity(Entity entity){
-        entity.addLongProperty("codeExercice").columnName("codeExercice");
-        entity.addLongProperty("personnelId").columnName("personnelId");
-        entity.addStringProperty("dureeEvaluationEnSeconde").columnName("dureeEvaluationEnSeconde");
-        entity.addStringProperty("dureeDuRepondantEnSeconde").columnName("dureeDuRepondantEnSeconde");
-        entity.addStringProperty("dateDebutEvaluationDuRepondant").columnName("dateDebutEvaluationDuRepondant");
-        entity.addStringProperty("dateFinEvaluationDuRepondant").columnName("dateFinEvaluationDuRepondant");
-    }
-
     public static void createQuestion_FormulaireExercicesEntity(Entity entity){
-        entity.addLongProperty("codeFormulaireExercice").columnName("codeFormulaireExercice");//.primaryKey();
+        entity.addLongProperty("codeFormulaireExercice").columnName("codeFormulaireExercice").primaryKey();
         entity.addLongProperty("codeQuestion").columnName("codeQuestion");
         entity.addStringProperty("ordreQuestion").columnName("ordreQuestion");
         entity.addBooleanProperty("estDebutQuestion").columnName("estDebutQuestion");
@@ -67,7 +114,7 @@ public class GenericEntityDao {
         entity.addStringProperty("indicationsQuestion").columnName("indicationsQuestion");
         entity.addBooleanProperty("avoirJustificationYN").columnName("avoirJustificationYN");
         entity.addIntProperty("typeQuestion").columnName("typeQuestion");
-        entity.addIntProperty("scoreTotal").columnName("scoreTotal");
+        entity.addDoubleProperty("scoreTotal").columnName("scoreTotal");
         entity.addIntProperty("caratereAccepte").columnName("caratereAccepte");
         entity.addIntProperty("nbreValeurMinimal").columnName("nbreValeurMinimal");
         entity.addIntProperty("nbreCaratereMaximal").columnName("nbreCaratereMaximal");
@@ -114,8 +161,21 @@ public class GenericEntityDao {
         entity.addStringProperty("dateModif").columnName("dateModif");
     }
 
-    //region [ Localisation ]
+    public static void createAgentEvaluationExercicesEntity(Entity entity){
+        entity.addLongProperty("codeAgentEvaluationExercices").columnName("codeAgentEvaluationExercices").primaryKey().autoincrement();
+        entity.addLongProperty("codeExercice").columnName("codeExercice");
+        entity.addLongProperty("personnelId").columnName("personnelId");
+        entity.addLongProperty("codeFormulaireExercice").columnName("codeFormulaireExercice");
+        entity.addStringProperty("scoreTotalFormulaire").columnName("scoreTotalFormulaire");
+        entity.addStringProperty("scoreFinalAtteint").columnName("scoreFinalAtteint");
+        entity.addStringProperty("dureeEvaluationEnSeconde").columnName("dureeEvaluationEnSeconde");
+        entity.addStringProperty("dureeDuRepondantEnSeconde").columnName("dureeDuRepondantEnSeconde");
+        entity.addStringProperty("dateDebutEvaluationDuRepondant").columnName("dateDebutEvaluationDuRepondant");
+        entity.addStringProperty("dateFinEvaluationDuRepondant").columnName("dateFinEvaluationDuRepondant");
+    }
+    //endregion
 
+    //region [ Localisation ]
     public static void createDepartementEntity(Entity entity){
         entity.addStringProperty("DeptId").columnName("DeptId").unique().notNull();
         entity.addStringProperty("DeptNom").columnName("DeptNom");
@@ -133,4 +193,16 @@ public class GenericEntityDao {
         entity.addStringProperty("ComId").columnName("ComId").notNull();
     }
     //endregion
+
+    public static void createMaterielEntity(Entity entity){
+        entity.addLongProperty("MaterielId").columnName("MaterielId").primaryKey().autoincrement();
+        entity.addStringProperty("Imei").columnName("Imei");
+        entity.addStringProperty("Serial").columnName("Serial");
+        entity.addStringProperty("Model").columnName("Model");
+        entity.addStringProperty("Version").columnName("Version");
+        entity.addIntProperty("AgentId").columnName("AgentId");
+        entity.addStringProperty("DateAssignation").columnName("DateAssignation");
+        entity.addIntProperty("IsConfigured").columnName("IsConfigured");
+        entity.addStringProperty("Synchronisation").columnName("Synchronisation");
+    }
 }

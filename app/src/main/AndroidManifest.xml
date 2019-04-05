@@ -30,19 +30,27 @@
             android:name=".Views.Activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".Views.Activity.MainActivity"
+            />
         <activity
             android:name=".Views.Activity.SplashScreen"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".Views.Activity.MainActivity"
+            />
         <activity
             android:name=".Views.Activity.DisplayListActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".Views.Activity.MainActivity"
+            />
 
         <activity android:name=".Views.Activity.QuestionnaireExerciceActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Views.Activity.MainActivity"
+            />
     </application>
 
 </manifest>

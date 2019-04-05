@@ -99,7 +99,7 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
         notifyDataSetChanged();
     }
 
-    public class DetailRowViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class DetailRowViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView imageView;
         public TextView title;
         public TextView desc;
@@ -108,13 +108,13 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
         private ImageView overflowIcon;
         private RowDataListModel row;
 
-        public DetailRowViewHolder(View view){
+        public DetailRowViewHolder(View view) {
             super(view);
 
-            imageView= (ImageView) view.findViewById(R.id.imageView);
-            title= (TextView) view.findViewById(R.id.title);
-            desc= (TextView) view.findViewById(R.id.desc);
-            overflowIcon= (ImageView) view.findViewById(R.id.overflowIcon);
+            imageView = (ImageView) view.findViewById(R.id.imageView);
+            title = (TextView) view.findViewById(R.id.title);
+            desc = (TextView) view.findViewById(R.id.desc);
+            overflowIcon = (ImageView) view.findViewById(R.id.overflowIcon);
             overflowIcon.setOnClickListener(this);
             view.setClickable(true);
             // view.animate();
@@ -124,7 +124,7 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
 
         @Override
         public void onClick(View v) {
-            if(!row.isEmpty()){
+            if (!row.isEmpty()) {
                 if (onItemClickListener != null) {
                     onItemClickListener.onItemClick(row);
                 }
@@ -153,60 +153,63 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
             };
         }*/
 
-        public void bind(RowDataListModel row){
-            this.row=row;
-            int icon=getIcon();
+        public void bind(RowDataListModel row) {
+            this.row = row;
+            int icon = getIcon();
             Picasso.with(context).load(icon).placeholder(icon)
                     .into(this.imageView);
             Picasso.with(context).load(R.drawable.dots_vertical).placeholder(R.drawable.dots_vertical)
                     .into(this.overflowIcon);
             this.overflowIcon.setVisibility(View.VISIBLE);
-            if( listType == Constant.LIST_TYPE_EXERCICE ){
+            if (listType == Constant.LIST_TYPE_EXERCICE) {
                 KeyValueModel keyValueModel = (KeyValueModel) row.getModel();
 
-                if( keyValueModel.getKey() == ""+Constant.EXERCICE_ENTRAINEMENT_1 ){
+                if (keyValueModel.getKey() == "" + Constant.EXERCICE_ENTRAINEMENT_1) {
                     Picasso.with(context).load(R.drawable.ic_eva_entrainement).placeholder(R.drawable.ic_eva_entrainement).into(this.imageView);
 
-                }else if( keyValueModel.getKey() == ""+Constant.EXERCICE_FORMATIVE_2 ){
+                } else if (keyValueModel.getKey() == "" + Constant.EXERCICE_FORMATIVE_2) {
                     Picasso.with(context).load(R.drawable.ic_eva_formative).placeholder(R.drawable.ic_eva_formative).into(this.imageView);
 
-                }else if( keyValueModel.getKey() == ""+Constant.EXERCICE_SOMMATIVE_3 ){
+                } else if (keyValueModel.getKey() == "" + Constant.EXERCICE_SOMMATIVE_3) {
                     Picasso.with(context).load(R.drawable.ic_eva_somrmative).placeholder(R.drawable.ic_eva_somrmative).into(this.imageView);
 
-                }else if( keyValueModel.getKey() == ""+Constant.EXERCICE_OBSERVATION_4 ){
+                } else if (keyValueModel.getKey() == "" + Constant.EXERCICE_OBSERVATION_4) {
                     Picasso.with(context).load(R.drawable.ic_eva_observation).placeholder(R.drawable.ic_eva_observation).into(this.imageView);
                 }
                 this.overflowIcon.setVisibility(View.VISIBLE);
                 this.title.setText(Html.fromHtml((row.getTitle())));
                 this.desc.setText(Html.fromHtml(row.getDesc()));
-                this.desc.setVisibility(View.GONE);
+                this.desc.setVisibility(View.VISIBLE);
 
-            }else  if( listType == Constant.LIST_MODULE_EXERCICES ){
+            } else if (listType == Constant.LIST_MODULE_EXERCICES) {
                 FormulaireExercicesModel formExercicesModel = (FormulaireExercicesModel) row.getModel();
 
-                if( getAgentCanGoToEvaluation(formExercicesModel.getCodeExercice()) ){//if( formExercicesModel.getStatut() == Constant.OUI_1){
+                if (getAgentCanGoToEvaluation(formExercicesModel.getCodeExercice())) {//if( formExercicesModel.getStatut() == Constant.OUI_1){
                     Picasso.with(context).load(R.drawable.ic_doc_star).placeholder(R.drawable.ic_doc_star)
                             .into(this.imageView);
-                    this.overflowIcon.setVisibility(View.GONE);
-                }else{
+                } else {
                     Picasso.with(context).load(R.drawable.ic_doc).placeholder(R.drawable.ic_doc)
                             .into(this.imageView);
-                    this.overflowIcon.setVisibility(View.VISIBLE);
+                    //this.overflowIcon.setVisibility(View.VISIBLE);
                 }
+                this.overflowIcon.setVisibility(View.GONE);
                 this.title.setText(Html.fromHtml((row.getTitle())));
                 this.desc.setText(Html.fromHtml(row.getDesc()));
-                if(row.isEmpty()){
+                if (row.isEmpty()) {
                     overflowIcon.setVisibility(View.INVISIBLE);
                 }
+            } else {
+                this.overflowIcon.setVisibility(View.GONE);
+                this.title.setText(Html.fromHtml((row.getTitle())));
+                this.desc.setText(Html.fromHtml(row.getDesc()));
             }
-
-
         }
+
         public boolean getAgentCanGoToEvaluation(long codeExercice) {
-            try{
-                QueryRecordMngr queryRecordMngr=new QueryRecordMngrImpl(context);
+            try {
+                QueryRecordMngr queryRecordMngr = new QueryRecordMngrImpl(context);
                 Agent_Evaluation_ExercicesModel aee = queryRecordMngr.getAgent_Evaluation_Exercices_ByIdAgent(codeExercice, getPersId);
-                if( aee!=null && aee.getCodeExercice()!=null ){
+                if (aee != null && aee.getCodeExercice() != null) {
                     return true;
                 }
             } catch (ManagerException ex) {
@@ -235,7 +238,7 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
             return false;
         }*/
 
-public int getIcon(){
+        public int getIcon() {
             return R.drawable.ic_doc;
         }
 

@@ -28,6 +28,7 @@ import ht.ihsi.rgph.formation.evaluation.Managers.FormDataMngr;
 import ht.ihsi.rgph.formation.evaluation.Models.Agent_Evaluation_ExercicesModel;
 import ht.ihsi.rgph.formation.evaluation.Models.FormulaireExercicesModel;
 import ht.ihsi.rgph.formation.evaluation.Models.KeyValueModel;
+import ht.ihsi.rgph.formation.evaluation.Models.PersonnelModel;
 import ht.ihsi.rgph.formation.evaluation.Models.Question_FormulaireExercicesModel;
 import ht.ihsi.rgph.formation.evaluation.Models.RowDataListModel;
 import ht.ihsi.rgph.formation.evaluation.R;
@@ -85,7 +86,9 @@ public class DisplayListActivity extends BaseActivity {
                 //keyValueModel = (KeyValueModel) rowDataListModel.getModel();
 
             }else  if( listType == Constant.LIST_MODULE_EXERCICES ){
-                //rowDataListModel = (RowDataListModel) intent.getSerializableExtra(Constant.PARAM_MODEL);
+                id = Long.valueOf(intent.getStringExtra(Constant.PARAM_ID)).longValue();
+
+            }else  if( listType == Constant.LIST_RESULTAT_EXERCICE_PAR_AGENT ){
                 id = Long.valueOf(intent.getStringExtra(Constant.PARAM_ID)).longValue();
 
             }
@@ -314,6 +317,18 @@ public class DisplayListActivity extends BaseActivity {
                     intent.putExtra(Constant.PARAM_ID, ""+keyValueModel.getKey());
                     startActivity(intent);
                 }
+            }else if (listType == Constant.LIST_RESULTAT_EXERCICE) {
+                if( row != null ) {
+                    PersonnelModel keyValueModel = (PersonnelModel) row.getModel();
+                    intent = new Intent(this, DisplayListActivity.class);
+                    intent.putExtra(Constant.PARAM_ACTION_BAR_TITLE, " Résultat pour " + keyValueModel.getPrenom() + " " + keyValueModel.getNom());
+                    intent.putExtra(Constant.PARAM_GRAND_TITRE_HEADER_ONE, "");
+                    intent.putExtra(Constant.PARAM_SOUS_TITRE_HEADER_TWO, "");
+                    intent.putExtra(Constant.PARAM_TYPE_FORMULAIRE, "" + Constant.LIST_RESULTAT_EXERCICE_PAR_AGENT);
+                    //intent.putExtra(Constant.PARAM_MODULE_STATUT, keyValueModel);
+                    intent.putExtra(Constant.PARAM_ID, ""+keyValueModel.getPersId());
+                    startActivity(intent);
+                }
             }
         }catch (TextEmptyException ex) {
             Tools.AlertDialogMsg(this, ex.getMessage());
@@ -371,6 +386,12 @@ public class DisplayListActivity extends BaseActivity {
 
                 }else if (listType == Constant.LIST_TYPE_EXERCICE) {
                     rowDataList = queryRecordMngr.searchList_TypeExercice();
+
+                }else if ( listType == Constant.LIST_RESULTAT_EXERCICE ) {
+                    rowDataList = queryRecordMngr.searchList_AgentParEvaluation();
+
+                }else if( listType == Constant.LIST_RESULTAT_EXERCICE_PAR_AGENT ) {
+                    rowDataList = queryRecordMngr.searchList_Resultat_ParAgent(id);
                 }
                 if( rowDataList != null ){
                     targetList.addAll(rowDataList);

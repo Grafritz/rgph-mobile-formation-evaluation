@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 
+import ht.ihsi.rgph.formation.evaluation.BuildConfig;
 import ht.ihsi.rgph.formation.evaluation.R;
 import ht.ihsi.rgph.formation.evaluation.Constant.Constant;
 import ht.ihsi.rgph.formation.evaluation.Models.PersonnelModel;
@@ -28,6 +29,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     private EditText mEmailView;
     private EditText mPasswordView;
     private Context context;
+    public TextView tv_CopyRight, tv_titre;
 
     public BootstrapButton btnSignIn;
     @Override
@@ -36,6 +38,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         setContentView(R.layout.activity_login);
 
         init(Constant.FORM_DATA_MANAGER);
+
+        tv_CopyRight = (TextView)this.findViewById(R.id.tv_CopyRight);
+        tv_CopyRight.setText(getString(R.string.msg_Developpeur) + "  -|- Ver. " + BuildConfig.VERSION_NAME);
+
+        tv_titre = (TextView)this.findViewById(R.id.tv_titre);
+        tv_titre.setText(getString(R.string.app_name) + "\nVer." + BuildConfig.VERSION_NAME);
 
         context = LoginActivity.this;
         mEmailView = (EditText) findViewById(R.id.tv_UserName);

@@ -41,7 +41,8 @@ public interface CURecordMngr {
 
     ReponseEntreeModel InsertReponseEntree(ReponseEntreeModel reponseEntreeModel) throws ManagerException, TextEmptyException;
 
+    Agent_Evaluation_ExercicesModel SaveAgent_Evaluation_Exercices(Agent_Evaluation_ExercicesModel agent_evaluation_exercicesModel, long codeAgentEvaluationExercices) throws ManagerException;
     Agent_Evaluation_ExercicesModel InsertAgent_Evaluation_Exercices(Agent_Evaluation_ExercicesModel agent_evaluation_exercicesModel) throws ManagerException;
-
+    Agent_Evaluation_ExercicesModel UpdateAgent_Evaluation_Exercices(Agent_Evaluation_ExercicesModel agent_evaluation_exercicesModel) throws ManagerException;
 
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import ht.ihsi.rgph.formation.evaluation.Backend.DAOEntities.Agent_Evaluation_Exercices;
 import ht.ihsi.rgph.formation.evaluation.Backend.DAOEntities.Agent_Evaluation_ExercicesDao;
 import ht.ihsi.rgph.formation.evaluation.Backend.DAOEntities.DaoSession;
 import ht.ihsi.rgph.formation.evaluation.Backend.DAOEntities.Personnel;
@@ -77,18 +78,62 @@ public class CURecordMngrImpl extends AbstractDatabaseManager implements CURecor
     }
 
     @Override
+    public Agent_Evaluation_ExercicesModel SaveAgent_Evaluation_Exercices(Agent_Evaluation_ExercicesModel agent_evaluation_exercicesModel, long codeAgentEvaluationExercices) throws ManagerException {
+        try {
+            if ( codeAgentEvaluationExercices <= 0 ) {
+                //Validation(personnelModel);
+                agent_evaluation_exercicesModel = InsertAgent_Evaluation_Exercices(agent_evaluation_exercicesModel);
+            } else {
+                agent_evaluation_exercicesModel.setCodeAgentEvaluationExercices(codeAgentEvaluationExercices);
+                agent_evaluation_exercicesModel = UpdateAgent_Evaluation_Exercices(agent_evaluation_exercicesModel);
+            }
+        }catch (Exception ex){
+            throw ex;
+        }
+        return agent_evaluation_exercicesModel;
+    }
+
+    @Override
     public Agent_Evaluation_ExercicesModel InsertAgent_Evaluation_Exercices(Agent_Evaluation_ExercicesModel agent_evaluation_exercicesModel) throws ManagerException {
         if ( agent_evaluation_exercicesModel != null ) {
             openWritableDb();
             Agent_Evaluation_ExercicesDao obj = daoSession.getAgent_Evaluation_ExercicesDao();
-            long _id = obj.insert(ModelMapper.MapTo(agent_evaluation_exercicesModel));
-            if ( _id != 0 ) {
-                //ReponseEntree bat = obj.load(_id);
-                Log.d(Tools.TAG, "Agent_Evaluation_ExercicesModel / Insert ID:" + _id );
-                daoSession.clear();
-                return agent_evaluation_exercicesModel;
-            } else {
-                throw new ManagerException("Une erreur est survenue lors de l'enregistrement ");
+            try {
+                long _id = obj.insert(ModelMapper.MapTo(agent_evaluation_exercicesModel));
+                agent_evaluation_exercicesModel.setCodeAgentEvaluationExercices(_id);
+                if ( _id != 0 ) {
+                    //ReponseEntree bat = obj.load(_id);
+                    Log.d(Tools.TAG, "Agent_Evaluation_ExercicesModel / Insert ID:" + _id );
+                    daoSession.clear();
+                    return agent_evaluation_exercicesModel;
+                } else {
+                    throw new ManagerException("Une erreur est survenue lors de l'enregistrement ");
+                }
+            } catch (Exception ex) {
+                throw new ManagerException("Une erreur est survenue lors de l'enregistrement "+ ex.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Agent_Evaluation_ExercicesModel UpdateAgent_Evaluation_Exercices(Agent_Evaluation_ExercicesModel agent_evaluation_exercicesModel) throws ManagerException {
+        if (agent_evaluation_exercicesModel != null) {
+            openReadableDb();
+            Agent_Evaluation_ExercicesDao dao = daoSession.getAgent_Evaluation_ExercicesDao();
+            Agent_Evaluation_Exercices obj = dao.load(agent_evaluation_exercicesModel.getCodeAgentEvaluationExercices());
+            //Log.d(ToastUtility.TAG, " B. UPDATING / BID:"+personnelModel.getPersId()  );
+            if (obj != null) {
+                obj = ModelMapper.MapTo(agent_evaluation_exercicesModel);
+                obj.setCodeAgentEvaluationExercices(agent_evaluation_exercicesModel.getCodeAgentEvaluationExercices());
+                try {
+                    dao.update(obj);
+                    //Log.d(ToastUtility.TAG, "PERSONNEL UPDATING / BID:"+personnelModel.getPersId()  );
+                    daoSession.clear();
+                    return ModelMapper.MapTo(obj);
+                } catch (Exception ex) {
+                    throw new ManagerException("Manager Exception: " + ex.getMessage());
+                }
             }
         }
         return null;

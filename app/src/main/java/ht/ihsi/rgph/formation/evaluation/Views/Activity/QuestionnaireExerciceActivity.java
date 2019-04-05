@@ -1,6 +1,5 @@
 package ht.ihsi.rgph.formation.evaluation.Views.Activity;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -20,13 +19,11 @@ import android.widget.TextView;
 
 import java.io.Serializable;
 
-import ht.ihsi.rgph.formation.evaluation.Backend.DAOEntities.Agent_Evaluation_Exercices;
 import ht.ihsi.rgph.formation.evaluation.Constant.Constant;
 import ht.ihsi.rgph.formation.evaluation.Exceptions.TextEmptyException;
 import ht.ihsi.rgph.formation.evaluation.Models.Agent_Evaluation_ExercicesModel;
 import ht.ihsi.rgph.formation.evaluation.Models.JustificationReponsesModel;
 import ht.ihsi.rgph.formation.evaluation.Models.KeyValueModel;
-import ht.ihsi.rgph.formation.evaluation.Models.QuestionsModel;
 import ht.ihsi.rgph.formation.evaluation.Models.ReponsesModel;
 import ht.ihsi.rgph.formation.evaluation.R;
 import ht.ihsi.rgph.formation.evaluation.Utilities.QuestionnaireFormulaireUtility;
@@ -360,6 +357,8 @@ public class QuestionnaireExerciceActivity extends BaseActivity implements Seria
                     , et_KannotBato, et_InvetePanoSoleJeneratrisDelko, et_MiletChwalBourik, et_BefVach, et_KochonKabrit, et_BetVolayPoulKok
                     , recyclerViewReponse, codeReponseRecyclerView, codeReponseKeyValueModel );
 
+            QF.SaveAgent_Evaluation(cuRecordMngr);
+
             if ( QF.getQuestionsModelList().size() > QuestionnaireFormulaireUtility.countRowIndex+1) {
                 Goto_QuestionSuivante(QF);
             }else{
@@ -378,19 +377,9 @@ public class QuestionnaireExerciceActivity extends BaseActivity implements Seria
 
     private void SaveAgent_Evaluation() {
         try{
-            String dateFinEvaluation = Tools.getDateString_MMddyyyy_HHmmss();
-
-            Agent_Evaluation_ExercicesModel aee = new Agent_Evaluation_ExercicesModel();
-            aee.setCodeExercice(QF.formExercicesModel.getCodeExercice());
-            aee.setPersonnelId(getPersId);
-            aee.setDureeEvaluationEnSeconde(QF.formExercicesModel.getDureeEnSeconde());
-            aee.setDateDebutEvaluationDuRepondant(QF.getDateDebutCollecte());
-            aee.setDateFinEvaluationDuRepondant(dateFinEvaluation);
-            aee.setDureeDuRepondantEnSeconde(""+QF.getDureeSaisie(dateFinEvaluation));
-
-            QF.InsertAgent_Evaluation(cuRecordMngr, aee);
-
+            QF.SaveAgent_Evaluation(cuRecordMngr);
             ShowAlertDialogMsg("Evaluation terminée avec succès...");
+
         } catch (Exception ex) {
             Tools.LogCat("Exception: SaveAgent_Evaluation() :" + ex);
             Tools.AlertDialogMsg(this, ex.getMessage());

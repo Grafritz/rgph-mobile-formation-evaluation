@@ -6,13 +6,44 @@ package ht.ihsi.rgph.formation.evaluation.Models;
 
 public class Agent_Evaluation_ExercicesModel extends BaseModel {
 
+    private Long codeAgentEvaluationExercices;
     private Long codeExercice;
     private Long personnelId;
+    private Long codeFormulaireExercice;
+    private String scoreTotalFormulaire;
+    private String scoreFinalAtteint;
     private String dureeEvaluationEnSeconde;
     private String dureeDuRepondantEnSeconde;
     private String dateDebutEvaluationDuRepondant;
     private String dateFinEvaluationDuRepondant;
 
+    public Agent_Evaluation_ExercicesModel() {
+    }
+
+    public Agent_Evaluation_ExercicesModel(Long codeAgentEvaluationExercices) {
+        this.codeAgentEvaluationExercices = codeAgentEvaluationExercices;
+    }
+
+    public Agent_Evaluation_ExercicesModel(Long codeAgentEvaluationExercices, Long codeExercice, Long personnelId, Long codeFormulaireExercice, String scoreTotalFormulaire, String scoreFinalAtteint, String dureeEvaluationEnSeconde, String dureeDuRepondantEnSeconde, String dateDebutEvaluationDuRepondant, String dateFinEvaluationDuRepondant) {
+        this.codeAgentEvaluationExercices = codeAgentEvaluationExercices;
+        this.codeExercice = codeExercice;
+        this.personnelId = personnelId;
+        this.codeFormulaireExercice = codeFormulaireExercice;
+        this.scoreTotalFormulaire = scoreTotalFormulaire;
+        this.scoreFinalAtteint = scoreFinalAtteint;
+        this.dureeEvaluationEnSeconde = dureeEvaluationEnSeconde;
+        this.dureeDuRepondantEnSeconde = dureeDuRepondantEnSeconde;
+        this.dateDebutEvaluationDuRepondant = dateDebutEvaluationDuRepondant;
+        this.dateFinEvaluationDuRepondant = dateFinEvaluationDuRepondant;
+    }
+
+    public Long getCodeAgentEvaluationExercices() {
+        return codeAgentEvaluationExercices;
+    }
+
+    public void setCodeAgentEvaluationExercices(Long codeAgentEvaluationExercices) {
+        this.codeAgentEvaluationExercices = codeAgentEvaluationExercices;
+    }
 
     public Long getCodeExercice() {
         return codeExercice;
@@ -28,6 +59,30 @@ public class Agent_Evaluation_ExercicesModel extends BaseModel {
 
     public void setPersonnelId(Long personnelId) {
         this.personnelId = personnelId;
+    }
+
+    public Long getCodeFormulaireExercice() {
+        return codeFormulaireExercice;
+    }
+
+    public void setCodeFormulaireExercice(Long codeFormulaireExercice) {
+        this.codeFormulaireExercice = codeFormulaireExercice;
+    }
+
+    public String getScoreTotalFormulaire() {
+        return scoreTotalFormulaire;
+    }
+
+    public void setScoreTotalFormulaire(String scoreTotalFormulaire) {
+        this.scoreTotalFormulaire = scoreTotalFormulaire;
+    }
+
+    public String getScoreFinalAtteint() {
+        return scoreFinalAtteint;
+    }
+
+    public void setScoreFinalAtteint(String scoreFinalAtteint) {
+        this.scoreFinalAtteint = scoreFinalAtteint;
     }
 
     public String getDureeEvaluationEnSeconde() {

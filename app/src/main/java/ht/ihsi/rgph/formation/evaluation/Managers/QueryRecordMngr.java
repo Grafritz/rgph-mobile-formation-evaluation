@@ -24,6 +24,9 @@ import ht.ihsi.rgph.formation.evaluation.Utilities.Shared_Preferences;
     List<RowDataListModel> searchList_FormulaireExercice_ByType(long typeExercice) throws ManagerException;
    List<RowDataListModel> searchList_TypeExercice() throws ManagerException;
 
+    List<RowDataListModel> searchList_AgentParEvaluation() throws ManagerException;
+    List<RowDataListModel> searchList_Resultat_ParAgent(long personelId) throws ManagerException;
+
     Agent_Evaluation_ExercicesModel getAgent_Evaluation_Exercices_ByIdAgent(long idFormExercice, long idPersonnel) throws ManagerException;
 
 }

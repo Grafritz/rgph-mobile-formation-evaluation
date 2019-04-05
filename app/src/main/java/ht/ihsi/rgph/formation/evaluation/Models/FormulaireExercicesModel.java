@@ -17,16 +17,6 @@ public class FormulaireExercicesModel extends BaseModel  {
     private String createdBy;
     private String dateCreated;
 
-    private boolean isReadyToEvaluate=false;
-
-    public boolean getIsReadyToEvaluate() {
-        return isReadyToEvaluate;
-    }
-
-    public void setIsReadyToEvaluate(boolean readyToEvaluate) {
-        isReadyToEvaluate = readyToEvaluate;
-    }
-
     public Long getCodeExercice() {
         return codeExercice;
     }
@@ -106,4 +96,34 @@ public class FormulaireExercicesModel extends BaseModel  {
     public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
+
+    //region [ OTHER ATTRIBUTS - get, set]
+    private boolean isReadyToEvaluate=false;
+
+    public boolean getIsReadyToEvaluate() {
+        return isReadyToEvaluate;
+    }
+
+    public void setIsReadyToEvaluate(boolean readyToEvaluate) {
+        isReadyToEvaluate = readyToEvaluate;
+    }
+    private int NbrQuestion;
+    private double ScoreFormulaire;
+
+    public int getNbrQuestion() {
+        return NbrQuestion;
+    }
+
+    public void setNbrQuestion(int nbrQuestion) {
+        NbrQuestion = nbrQuestion;
+    }
+
+    public double getScoreFormulaire() {
+        return ScoreFormulaire;
+    }
+
+    public void setScoreFormulaire(double scoreFormulaire) {
+        ScoreFormulaire = scoreFormulaire;
+    }
+    //endregion
 }

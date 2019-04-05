@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import ht.ihsi.rgph.formation.evaluation.BuildConfig;
 import ht.ihsi.rgph.formation.evaluation.Constant.Constant;
 import ht.ihsi.rgph.formation.evaluation.Models.PersonnelModel;
 import ht.ihsi.rgph.formation.evaluation.R;
@@ -20,13 +21,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public TextView tv_Utilisateur;
     public TextView tv_GestionCompteUtilisateur;
 
-    public Button btn_QuitterApplication;
-    public Button btn_FomulaireExercicesListe;
-    public Button btn_GestionCompteUtilisateur;
-    public Button btn_Connexion;
+    public Button btn_QuitterApplication, btn_FomulaireExercicesListe, btn_GestionCompteUtilisateur, btn_Connexion, btn_Resultat;
 
     public LinearLayout LL_Fomulaire_MAIN;
     public LinearLayout LL_FomulaireSDE;
+    public TextView tv_CopyRight, tv_titre;
     //endregion
 
     @Override
@@ -51,6 +50,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+            tv_CopyRight = (TextView)this.findViewById(R.id.tv_CopyRight);
+            tv_CopyRight.setText(getString(R.string.msg_Developpeur) + "  -|- Ver. " + BuildConfig.VERSION_NAME);
+
+            tv_titre = (TextView)this.findViewById(R.id.tv_titre);
+            tv_titre.setText(getString(R.string.app_name) + "\nVer." + BuildConfig.VERSION_NAME);
+
+
             tv_Utilisateur = (TextView)this.findViewById(R.id.tv_Utilisateur);
 
             tv_message = (TextView)this.findViewById(R.id.tv_message);
@@ -64,6 +70,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             btn_Connexion = (Button)this.findViewById(R.id.btn_Connexion);
             btn_Connexion.setOnClickListener(this);
+
+            btn_Resultat = (Button)this.findViewById(R.id.btn_Resultat);
+            btn_Resultat.setOnClickListener(this);
 
             tv_GestionCompteUtilisateur = (TextView)this.findViewById(R.id.tv_GestionCompteUtilisateur);
             btn_GestionCompteUtilisateur = (Button)this.findViewById(R.id.btn_GestionCompteUtilisateur);
@@ -84,7 +93,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     //region [  ]
     @Override
     protected void onResume() {
-        Tools.LogCat("W", "onResume");
+        //Tools.LogCat("W", "onResume");
         CheckPrivilegeUser();
         super.onResume();
     }
@@ -139,15 +148,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         intent.putExtra(Constant.PARAM_MODULE_STATUT, "" );
                         intent.putExtra(Constant.PARAM_ID, "" );
                         startActivity(intent);
-
-                        /*intent = new Intent(this, DisplayListActivity.class);
-                        intent.putExtra(Constant.PARAM_ACTION_BAR_TITLE, ""+getString(R.string.label_Exercicesdentrainement));
-                        intent.putExtra(Constant.PARAM_GRAND_TITRE_HEADER_ONE, "");
-                        intent.putExtra(Constant.PARAM_SOUS_TITRE_HEADER_TWO, "");
-                        intent.putExtra(Constant.PARAM_TYPE_FORMULAIRE, "" + Constant.LIST_MODULE_EXERCICES);
-                        intent.putExtra(Constant.PARAM_MODULE_STATUT, "" );
-                        intent.putExtra(Constant.PARAM_ID, "" );
-                        startActivity(intent);*/
                     }
                     break;
                 case R.id.btn_Connexion:
@@ -156,6 +156,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 case R.id.btn_GestionCompteUtilisateur:
                     // On affiche la liste des
                     showListView("Liste Compte Utilisateur", Constant.LIST_COMPTE_UTILISATEUR, 0, 0);
+                    break;
+                case R.id.btn_Resultat:
+                    // On affiche la liste des
+                    showListView("Liste Compte Utilisateur", Constant.LIST_RESULTAT_EXERCICE, 0, 0);
                     break;
                 case R.id.btn_QuitterApplication:
                     Disconnected();
@@ -193,6 +197,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         intent.putExtra(Constant.PARAM_ID, "" + idMere);
         startActivity(intent);
     }
+
     /*public void showListView(String title, int listType, int typeformulaire, long idMere){
         intent= new Intent(this, DisplayListActivity.class);
         intent.putExtra(Constant.PARAM_ACTION_BAR_TITLE, title);
@@ -212,6 +217,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             // On verifie si l'appareil est configure par l'ASTIC ou le superviseur
             tv_GestionCompteUtilisateur.setVisibility(View.GONE);
             btn_GestionCompteUtilisateur.setVisibility(View.GONE);
+            btn_Resultat.setVisibility(View.GONE);
 
             if (SPref.getIsConnected()) {
                 btn_Connexion.setVisibility(View.GONE);
@@ -224,11 +230,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (SPref.getProfileId() != null && Constant.PRIVILEGE_DEVELOPPEUR == SPref.getProfileId()) {
                     tv_GestionCompteUtilisateur.setVisibility(View.VISIBLE);
                     btn_GestionCompteUtilisateur.setVisibility(View.VISIBLE);
+                    btn_Resultat.setVisibility(View.VISIBLE);
 
-                } /*else if (SPref.getProfileId() != null && Constant.PRIVILEGE_SUPERVISEUR == SPref.getProfileId()) {
+                }else if (SPref.getProfileId() != null && Constant.PRIVILEGE_SUPERVISEUR == SPref.getProfileId()) {
                     SetVisibleControls(View.VISIBLE);
+                    btn_Resultat.setVisibility(View.VISIBLE);
 
-                } else if (SPref.getProfileId() != null && Constant.PRIVILEGE_AGENT == SPref.getProfileId()) {
+                }/* else if (SPref.getProfileId() != null && Constant.PRIVILEGE_AGENT == SPref.getProfileId()) {
 
                 }*/
                 tv_Utilisateur.setVisibility(View.VISIBLE);

@@ -71,10 +71,15 @@ public class ModelMapper {
         return result;
     }
 
+
     public static Agent_Evaluation_ExercicesModel MapTo(Agent_Evaluation_Exercices entity) {
         Agent_Evaluation_ExercicesModel m = new Agent_Evaluation_ExercicesModel();
-        m.setCodeExercice(entity.getCodeExercice()) ;
-        m.setPersonnelId(entity.getCodeExercice());
+        m.setCodeAgentEvaluationExercices(entity.getCodeAgentEvaluationExercices());
+        m.setCodeExercice(entity.getCodeExercice());
+        m.setPersonnelId(entity.getPersonnelId());
+        m.setCodeFormulaireExercice(entity.getCodeFormulaireExercice());
+        m.setScoreTotalFormulaire(entity.getScoreTotalFormulaire());
+        m.setScoreFinalAtteint(entity.getScoreFinalAtteint());
         m.setDureeEvaluationEnSeconde(entity.getDureeEvaluationEnSeconde());
         m.setDureeDuRepondantEnSeconde(entity.getDureeDuRepondantEnSeconde());
         m.setDateDebutEvaluationDuRepondant(entity.getDateDebutEvaluationDuRepondant());
@@ -84,8 +89,12 @@ public class ModelMapper {
 
     public static Agent_Evaluation_Exercices MapTo(Agent_Evaluation_ExercicesModel entity) {
         Agent_Evaluation_Exercices m = new Agent_Evaluation_Exercices();
+        //m.setCodeAgentEvaluationExercices(entity.getCodeAgentEvaluationExercices());
         m.setCodeExercice(entity.getCodeExercice()) ;
         m.setPersonnelId(entity.getPersonnelId());
+        m.setCodeFormulaireExercice(entity.getCodeFormulaireExercice());
+        m.setScoreTotalFormulaire(entity.getScoreTotalFormulaire());
+        m.setScoreFinalAtteint(entity.getScoreFinalAtteint());
         m.setDureeEvaluationEnSeconde(entity.getDureeEvaluationEnSeconde());
         m.setDureeDuRepondantEnSeconde(entity.getDureeDuRepondantEnSeconde());
         m.setDateDebutEvaluationDuRepondant(entity.getDateDebutEvaluationDuRepondant());
@@ -93,6 +102,22 @@ public class ModelMapper {
         return m;
     }
 
+    public static FormulaireExercicesModel MapTo(FormulaireExercices entity ){//}, int NbrQuestion, double ScoreFormulaire) {
+        FormulaireExercicesModel m = new FormulaireExercicesModel();
+        m.setCodeExercice(entity.getCodeExercice()) ;
+        m.setLibelleExercice(entity.getLibelleExercice());
+        m.setDescriptions(entity.getDescriptions());
+        m.setInstructions(entity.getInstructions());
+        m.setRappelExercice(entity.getRappelExercice());
+        m.setTypeEvaluation(entity.getTypeEvaluation());
+        m.setStatut(entity.getStatut());
+
+        //m.setNbrQuestion( NbrQuestion );
+        //m.setScoreFormulaire( ScoreFormulaire );
+
+        m.setDureeEnSeconde(entity.getDureeEnSeconde());
+        return m;
+    }
     public static PersonnelModel MapTo(Personnel entity) {
         PersonnelModel m = new PersonnelModel();
         m.setPersId(entity.getPersId());

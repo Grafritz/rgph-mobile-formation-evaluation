@@ -12,7 +12,7 @@ public class QuestionsModel extends BaseModel {
     private String indicationsQuestion;
     private Boolean avoirJustificationYN;
     private Integer typeQuestion;
-    private Integer scoreTotal;
+    private Double scoreTotal;
     private Integer caratereAccepte;
     private Integer nbreValeurMinimal;
     private Integer nbreCaratereMaximal;
@@ -68,11 +68,11 @@ public class QuestionsModel extends BaseModel {
         this.typeQuestion = typeQuestion;
     }
 
-    public Integer getScoreTotal() {
+    public Double getScoreTotal() {
         return scoreTotal;
     }
 
-    public void setScoreTotal(Integer scoreTotal) {
+    public void setScoreTotal(Double scoreTotal) {
         this.scoreTotal = scoreTotal;
     }
 
