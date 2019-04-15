@@ -98,19 +98,19 @@ public class FormDataMngrImpl extends AbstractDatabaseManager implements FormDat
      */
     @Override
     public PersonnelModel getPersonnelInfo(String NomUtilisateur, String MotDePasse) throws ManagerException {
-        Log.i(MANAGERS, "Inside of getPersonnelInfo!");
+        //Log.i(MANAGERS, "Inside of getPersonnelInfo!");
         PersonnelModel result = null;
         try {
             openReadableDb();
             Personnel personnel = daoSession.getPersonnelDao().queryBuilder()
                     .where(PersonnelDao.Properties.NomUtilisateur.eq(NomUtilisateur))
-                    .where(PersonnelDao.Properties.MotDePasse.eq(MotDePasse)).unique();
+                    .where(PersonnelDao.Properties.MotDePasse.eq( MotDePasse )).unique();
             if( personnel != null ){
                 result = ModelMapper.MapTo(personnel);
             }
             daoSession.clear();
         }catch(Exception ex){
-            Log.e(MANAGERS, "Exception <> unable to get Personne lInfo : " + ex.getMessage());
+            //Log.e(MANAGERS, "Exception <> unable to get Personne lInfo : " + ex.getMessage());
             throw  new ManagerException("<> unable to get Personnel Info : ",ex);
         }
         return result;

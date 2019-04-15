@@ -151,7 +151,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         protected Boolean doInBackground(Void... params) {
             try {
                 //Thread.sleep(2000);
-                personnelModel = formDataMngr.getPersonnelInfo(mEmail, mPassword);
+                String password = Tools.md5(mPassword);
+                personnelModel = formDataMngr.getPersonnelInfo(mEmail, password);
                 if(personnelModel == null ) {
                     return false;
                 }

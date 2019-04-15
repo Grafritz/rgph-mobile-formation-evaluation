@@ -7,9 +7,11 @@ package ht.ihsi.rgph.formation.evaluation.Backend.DAOEntities;
 public class Reponses {
 
     private Long codeReponse;
+    private Long codeReponseManuel;
     private Long codeQuestion;
     private String libelleReponse;
     private Boolean isCorrect;
+    private Double scoreTotal;
     private Boolean estEnfant;
     private Boolean avoirEnfant;
     private String codeParent;
@@ -21,11 +23,13 @@ public class Reponses {
         this.codeReponse = codeReponse;
     }
 
-    public Reponses(Long codeReponse, Long codeQuestion, String libelleReponse, Boolean isCorrect, Boolean estEnfant, Boolean avoirEnfant, String codeParent) {
+    public Reponses(Long codeReponse, Long codeReponseManuel, Long codeQuestion, String libelleReponse, Boolean isCorrect, Double scoreTotal, Boolean estEnfant, Boolean avoirEnfant, String codeParent) {
         this.codeReponse = codeReponse;
+        this.codeReponseManuel = codeReponseManuel;
         this.codeQuestion = codeQuestion;
         this.libelleReponse = libelleReponse;
         this.isCorrect = isCorrect;
+        this.scoreTotal = scoreTotal;
         this.estEnfant = estEnfant;
         this.avoirEnfant = avoirEnfant;
         this.codeParent = codeParent;
@@ -37,6 +41,14 @@ public class Reponses {
 
     public void setCodeReponse(Long codeReponse) {
         this.codeReponse = codeReponse;
+    }
+
+    public Long getCodeReponseManuel() {
+        return codeReponseManuel;
+    }
+
+    public void setCodeReponseManuel(Long codeReponseManuel) {
+        this.codeReponseManuel = codeReponseManuel;
     }
 
     public Long getCodeQuestion() {
@@ -61,6 +73,14 @@ public class Reponses {
 
     public void setIsCorrect(Boolean isCorrect) {
         this.isCorrect = isCorrect;
+    }
+
+    public Double getScoreTotal() {
+        return scoreTotal;
+    }
+
+    public void setScoreTotal(Double scoreTotal) {
+        this.scoreTotal = scoreTotal;
     }
 
     public Boolean getEstEnfant() {

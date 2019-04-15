@@ -126,9 +126,11 @@ public class GenericEntityDao {
 
     public static void createReponsesEntity(Entity entity){
         entity.addLongProperty("codeReponse").columnName("codeReponse").primaryKey();
+        entity.addLongProperty("codeReponseManuel").columnName("codeReponseManuel");
         entity.addLongProperty("codeQuestion").columnName("codeQuestion");
         entity.addStringProperty("libelleReponse").columnName("libelleReponse");
         entity.addBooleanProperty("isCorrect").columnName("isCorrect");
+        entity.addDoubleProperty("scoreTotal").columnName("scoreTotal");
         entity.addBooleanProperty("estEnfant").columnName("estEnfant");
         entity.addBooleanProperty("avoirEnfant").columnName("avoirEnfant");
         entity.addStringProperty("codeParent").columnName("codeParent");
