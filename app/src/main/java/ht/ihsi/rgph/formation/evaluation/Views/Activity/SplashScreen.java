@@ -75,16 +75,16 @@ public class SplashScreen extends BaseActivity {
                 message = loadStaticDataMngr.loadData_DEPARTEMENT(this, database, tv_MsgSplashScreen);
                 tv_MsgSplashScreen.setText( message );
                 message += loadStaticDataMngr.loadData_PERSONNEL(this, database, tv_MsgSplashScreen);
-                tv_MsgSplashScreen.setText( message );
-                message += loadStaticDataMngr.loadData_QUESTIONS(this, database, tv_MsgSplashScreen);
-                tv_MsgSplashScreen.setText( message );
-                message += loadStaticDataMngr.loadData_REPONSES(this, database, tv_MsgSplashScreen);
-                tv_MsgSplashScreen.setText( message );
-                message += loadStaticDataMngr.loadData_QUESTIONS_JUSTIFICATION_REPONSE(this, database, tv_MsgSplashScreen);
-                tv_MsgSplashScreen.setText( message );
-                message += loadStaticDataMngr.loadData_FORMULAIRE_EXERCICES(this, database, tv_MsgSplashScreen);
-                tv_MsgSplashScreen.setText( message );
-                message += loadStaticDataMngr.loadData_QUESTIONS_FORMULAIRE_EXERCICES(this, database, tv_MsgSplashScreen);
+                //tv_MsgSplashScreen.setText( message );
+                //message += loadStaticDataMngr.loadData_QUESTIONS(this, database, tv_MsgSplashScreen);
+                //tv_MsgSplashScreen.setText( message );
+                //message += loadStaticDataMngr.loadData_REPONSES(this, database, tv_MsgSplashScreen);
+                //tv_MsgSplashScreen.setText( message );
+                //message += loadStaticDataMngr.loadData_QUESTIONS_JUSTIFICATION_REPONSE(this, database, tv_MsgSplashScreen);
+                //tv_MsgSplashScreen.setText( message );
+                //message += loadStaticDataMngr.loadData_FORMULAIRE_EXERCICES(this, database, tv_MsgSplashScreen);
+                //tv_MsgSplashScreen.setText( message );
+                //message += loadStaticDataMngr.loadData_QUESTIONS_FORMULAIRE_EXERCICES(this, database, tv_MsgSplashScreen);
 
                 tv_MsgSplashScreen.setText( message );
 

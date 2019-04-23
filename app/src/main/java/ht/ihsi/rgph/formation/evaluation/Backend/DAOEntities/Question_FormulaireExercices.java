@@ -6,6 +6,7 @@ package ht.ihsi.rgph.formation.evaluation.Backend.DAOEntities;
  */
 public class Question_FormulaireExercices {
 
+    private Long ID;
     private Long codeFormulaireExercice;
     private Long codeQuestion;
     private String ordreQuestion;
@@ -14,15 +15,24 @@ public class Question_FormulaireExercices {
     public Question_FormulaireExercices() {
     }
 
-    public Question_FormulaireExercices(Long codeFormulaireExercice) {
-        this.codeFormulaireExercice = codeFormulaireExercice;
+    public Question_FormulaireExercices(Long ID) {
+        this.ID = ID;
     }
 
-    public Question_FormulaireExercices(Long codeFormulaireExercice, Long codeQuestion, String ordreQuestion, Boolean estDebutQuestion) {
+    public Question_FormulaireExercices(Long ID, Long codeFormulaireExercice, Long codeQuestion, String ordreQuestion, Boolean estDebutQuestion) {
+        this.ID = ID;
         this.codeFormulaireExercice = codeFormulaireExercice;
         this.codeQuestion = codeQuestion;
         this.ordreQuestion = ordreQuestion;
         this.estDebutQuestion = estDebutQuestion;
+    }
+
+    public Long getID() {
+        return ID;
+    }
+
+    public void setID(Long ID) {
+        this.ID = ID;
     }
 
     public Long getCodeFormulaireExercice() {

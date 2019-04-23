@@ -99,7 +99,8 @@ public class GenericEntityDao {
     }
 
     public static void createQuestion_FormulaireExercicesEntity(Entity entity){
-        entity.addLongProperty("codeFormulaireExercice").columnName("codeFormulaireExercice").primaryKey();
+        entity.addLongProperty("ID").columnName("ID").primaryKey();
+        entity.addLongProperty("codeFormulaireExercice").columnName("codeFormulaireExercice");
         entity.addLongProperty("codeQuestion").columnName("codeQuestion");
         entity.addStringProperty("ordreQuestion").columnName("ordreQuestion");
         entity.addBooleanProperty("estDebutQuestion").columnName("estDebutQuestion");

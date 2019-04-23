@@ -23,10 +23,11 @@ public class Question_FormulaireExercicesDao extends AbstractDao<Question_Formul
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property CodeFormulaireExercice = new Property(0, Long.class, "codeFormulaireExercice", true, "codeFormulaireExercice");
-        public final static Property CodeQuestion = new Property(1, Long.class, "codeQuestion", false, "codeQuestion");
-        public final static Property OrdreQuestion = new Property(2, String.class, "ordreQuestion", false, "ordreQuestion");
-        public final static Property EstDebutQuestion = new Property(3, Boolean.class, "estDebutQuestion", false, "estDebutQuestion");
+        public final static Property ID = new Property(0, Long.class, "ID", true, "ID");
+        public final static Property CodeFormulaireExercice = new Property(1, Long.class, "codeFormulaireExercice", false, "codeFormulaireExercice");
+        public final static Property CodeQuestion = new Property(2, Long.class, "codeQuestion", false, "codeQuestion");
+        public final static Property OrdreQuestion = new Property(3, String.class, "ordreQuestion", false, "ordreQuestion");
+        public final static Property EstDebutQuestion = new Property(4, Boolean.class, "estDebutQuestion", false, "estDebutQuestion");
     };
 
 
@@ -42,10 +43,11 @@ public class Question_FormulaireExercicesDao extends AbstractDao<Question_Formul
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"Tbl_Mob_Question_FormulaireExercices\" (" + //
-                "\"codeFormulaireExercice\" INTEGER PRIMARY KEY ," + // 0: codeFormulaireExercice
-                "\"codeQuestion\" INTEGER," + // 1: codeQuestion
-                "\"ordreQuestion\" TEXT," + // 2: ordreQuestion
-                "\"estDebutQuestion\" INTEGER);"); // 3: estDebutQuestion
+                "\"ID\" INTEGER PRIMARY KEY ," + // 0: ID
+                "\"codeFormulaireExercice\" INTEGER," + // 1: codeFormulaireExercice
+                "\"codeQuestion\" INTEGER," + // 2: codeQuestion
+                "\"ordreQuestion\" TEXT," + // 3: ordreQuestion
+                "\"estDebutQuestion\" INTEGER);"); // 4: estDebutQuestion
     }
 
     /** Drops the underlying database table. */
@@ -59,24 +61,29 @@ public class Question_FormulaireExercicesDao extends AbstractDao<Question_Formul
     protected void bindValues(SQLiteStatement stmt, Question_FormulaireExercices entity) {
         stmt.clearBindings();
  
+        Long ID = entity.getID();
+        if (ID != null) {
+            stmt.bindLong(1, ID);
+        }
+ 
         Long codeFormulaireExercice = entity.getCodeFormulaireExercice();
         if (codeFormulaireExercice != null) {
-            stmt.bindLong(1, codeFormulaireExercice);
+            stmt.bindLong(2, codeFormulaireExercice);
         }
  
         Long codeQuestion = entity.getCodeQuestion();
         if (codeQuestion != null) {
-            stmt.bindLong(2, codeQuestion);
+            stmt.bindLong(3, codeQuestion);
         }
  
         String ordreQuestion = entity.getOrdreQuestion();
         if (ordreQuestion != null) {
-            stmt.bindString(3, ordreQuestion);
+            stmt.bindString(4, ordreQuestion);
         }
  
         Boolean estDebutQuestion = entity.getEstDebutQuestion();
         if (estDebutQuestion != null) {
-            stmt.bindLong(4, estDebutQuestion ? 1L: 0L);
+            stmt.bindLong(5, estDebutQuestion ? 1L: 0L);
         }
     }
 
@@ -90,10 +97,11 @@ public class Question_FormulaireExercicesDao extends AbstractDao<Question_Formul
     @Override
     public Question_FormulaireExercices readEntity(Cursor cursor, int offset) {
         Question_FormulaireExercices entity = new Question_FormulaireExercices( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // codeFormulaireExercice
-            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // codeQuestion
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // ordreQuestion
-            cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0 // estDebutQuestion
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // ID
+            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // codeFormulaireExercice
+            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // codeQuestion
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // ordreQuestion
+            cursor.isNull(offset + 4) ? null : cursor.getShort(offset + 4) != 0 // estDebutQuestion
         );
         return entity;
     }
@@ -101,16 +109,17 @@ public class Question_FormulaireExercicesDao extends AbstractDao<Question_Formul
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, Question_FormulaireExercices entity, int offset) {
-        entity.setCodeFormulaireExercice(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setCodeQuestion(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
-        entity.setOrdreQuestion(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setEstDebutQuestion(cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0);
+        entity.setID(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setCodeFormulaireExercice(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
+        entity.setCodeQuestion(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
+        entity.setOrdreQuestion(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setEstDebutQuestion(cursor.isNull(offset + 4) ? null : cursor.getShort(offset + 4) != 0);
      }
     
     /** @inheritdoc */
     @Override
     protected Long updateKeyAfterInsert(Question_FormulaireExercices entity, long rowId) {
-        entity.setCodeFormulaireExercice(rowId);
+        entity.setID(rowId);
         return rowId;
     }
     
@@ -118,7 +127,7 @@ public class Question_FormulaireExercicesDao extends AbstractDao<Question_Formul
     @Override
     public Long getKey(Question_FormulaireExercices entity) {
         if(entity != null) {
-            return entity.getCodeFormulaireExercice();
+            return entity.getID();
         } else {
             return null;
         }
