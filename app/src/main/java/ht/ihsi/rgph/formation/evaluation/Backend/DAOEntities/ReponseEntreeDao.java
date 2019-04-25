@@ -30,10 +30,12 @@ public class ReponseEntreeDao extends AbstractDao<ReponseEntree, Long> {
         public final static Property CodeReponse = new Property(4, Long.class, "codeReponse", false, "codeReponse");
         public final static Property CodeJustificationReponse = new Property(5, Long.class, "CodeJustificationReponse", false, "CodeJustificationReponse");
         public final static Property ReponseSaisie = new Property(6, String.class, "reponseSaisie", false, "reponseSaisie");
-        public final static Property CreatedBy = new Property(7, String.class, "createdBy", false, "createdBy");
-        public final static Property DateCreated = new Property(8, String.class, "dateCreated", false, "dateCreated");
-        public final static Property ModifBy = new Property(9, String.class, "modifBy", false, "modifBy");
-        public final static Property DateModif = new Property(10, String.class, "dateModif", false, "dateModif");
+        public final static Property IsSynchroToAppFormation = new Property(7, Boolean.class, "IsSynchroToAppFormation", false, "IsSynchroToAppFormation");
+        public final static Property IsSynchroToCentrale = new Property(8, Boolean.class, "IsSynchroToCentrale", false, "IsSynchroToCentrale");
+        public final static Property CreatedBy = new Property(9, String.class, "createdBy", false, "createdBy");
+        public final static Property DateCreated = new Property(10, String.class, "dateCreated", false, "dateCreated");
+        public final static Property ModifBy = new Property(11, String.class, "modifBy", false, "modifBy");
+        public final static Property DateModif = new Property(12, String.class, "dateModif", false, "dateModif");
     };
 
 
@@ -56,10 +58,12 @@ public class ReponseEntreeDao extends AbstractDao<ReponseEntree, Long> {
                 "\"codeReponse\" INTEGER," + // 4: codeReponse
                 "\"CodeJustificationReponse\" INTEGER," + // 5: CodeJustificationReponse
                 "\"reponseSaisie\" TEXT," + // 6: reponseSaisie
-                "\"createdBy\" TEXT," + // 7: createdBy
-                "\"dateCreated\" TEXT," + // 8: dateCreated
-                "\"modifBy\" TEXT," + // 9: modifBy
-                "\"dateModif\" TEXT);"); // 10: dateModif
+                "\"IsSynchroToAppFormation\" INTEGER," + // 7: IsSynchroToAppFormation
+                "\"IsSynchroToCentrale\" INTEGER," + // 8: IsSynchroToCentrale
+                "\"createdBy\" TEXT," + // 9: createdBy
+                "\"dateCreated\" TEXT," + // 10: dateCreated
+                "\"modifBy\" TEXT," + // 11: modifBy
+                "\"dateModif\" TEXT);"); // 12: dateModif
     }
 
     /** Drops the underlying database table. */
@@ -108,24 +112,34 @@ public class ReponseEntreeDao extends AbstractDao<ReponseEntree, Long> {
             stmt.bindString(7, reponseSaisie);
         }
  
+        Boolean IsSynchroToAppFormation = entity.getIsSynchroToAppFormation();
+        if (IsSynchroToAppFormation != null) {
+            stmt.bindLong(8, IsSynchroToAppFormation ? 1L: 0L);
+        }
+ 
+        Boolean IsSynchroToCentrale = entity.getIsSynchroToCentrale();
+        if (IsSynchroToCentrale != null) {
+            stmt.bindLong(9, IsSynchroToCentrale ? 1L: 0L);
+        }
+ 
         String createdBy = entity.getCreatedBy();
         if (createdBy != null) {
-            stmt.bindString(8, createdBy);
+            stmt.bindString(10, createdBy);
         }
  
         String dateCreated = entity.getDateCreated();
         if (dateCreated != null) {
-            stmt.bindString(9, dateCreated);
+            stmt.bindString(11, dateCreated);
         }
  
         String modifBy = entity.getModifBy();
         if (modifBy != null) {
-            stmt.bindString(10, modifBy);
+            stmt.bindString(12, modifBy);
         }
  
         String dateModif = entity.getDateModif();
         if (dateModif != null) {
-            stmt.bindString(11, dateModif);
+            stmt.bindString(13, dateModif);
         }
     }
 
@@ -146,10 +160,12 @@ public class ReponseEntreeDao extends AbstractDao<ReponseEntree, Long> {
             cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4), // codeReponse
             cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // CodeJustificationReponse
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // reponseSaisie
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // createdBy
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // dateCreated
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // modifBy
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // dateModif
+            cursor.isNull(offset + 7) ? null : cursor.getShort(offset + 7) != 0, // IsSynchroToAppFormation
+            cursor.isNull(offset + 8) ? null : cursor.getShort(offset + 8) != 0, // IsSynchroToCentrale
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // createdBy
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // dateCreated
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // modifBy
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // dateModif
         );
         return entity;
     }
@@ -164,10 +180,12 @@ public class ReponseEntreeDao extends AbstractDao<ReponseEntree, Long> {
         entity.setCodeReponse(cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4));
         entity.setCodeJustificationReponse(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
         entity.setReponseSaisie(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setCreatedBy(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setDateCreated(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setModifBy(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setDateModif(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setIsSynchroToAppFormation(cursor.isNull(offset + 7) ? null : cursor.getShort(offset + 7) != 0);
+        entity.setIsSynchroToCentrale(cursor.isNull(offset + 8) ? null : cursor.getShort(offset + 8) != 0);
+        entity.setCreatedBy(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setDateCreated(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setModifBy(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setDateModif(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
      }
     
     /** @inheritdoc */

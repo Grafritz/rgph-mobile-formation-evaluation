@@ -16,6 +16,8 @@ public class Agent_Evaluation_Exercices {
     private String dureeDuRepondantEnSeconde;
     private String dateDebutEvaluationDuRepondant;
     private String dateFinEvaluationDuRepondant;
+    private Boolean IsSynchroToAppFormation;
+    private Boolean IsSynchroToCentrale;
 
     public Agent_Evaluation_Exercices() {
     }
@@ -24,7 +26,7 @@ public class Agent_Evaluation_Exercices {
         this.codeAgentEvaluationExercices = codeAgentEvaluationExercices;
     }
 
-    public Agent_Evaluation_Exercices(Long codeAgentEvaluationExercices, Long codeExercice, Long personnelId, Long codeFormulaireExercice, String scoreTotalFormulaire, String scoreFinalAtteint, String dureeEvaluationEnSeconde, String dureeDuRepondantEnSeconde, String dateDebutEvaluationDuRepondant, String dateFinEvaluationDuRepondant) {
+    public Agent_Evaluation_Exercices(Long codeAgentEvaluationExercices, Long codeExercice, Long personnelId, Long codeFormulaireExercice, String scoreTotalFormulaire, String scoreFinalAtteint, String dureeEvaluationEnSeconde, String dureeDuRepondantEnSeconde, String dateDebutEvaluationDuRepondant, String dateFinEvaluationDuRepondant, Boolean IsSynchroToAppFormation, Boolean IsSynchroToCentrale) {
         this.codeAgentEvaluationExercices = codeAgentEvaluationExercices;
         this.codeExercice = codeExercice;
         this.personnelId = personnelId;
@@ -35,6 +37,8 @@ public class Agent_Evaluation_Exercices {
         this.dureeDuRepondantEnSeconde = dureeDuRepondantEnSeconde;
         this.dateDebutEvaluationDuRepondant = dateDebutEvaluationDuRepondant;
         this.dateFinEvaluationDuRepondant = dateFinEvaluationDuRepondant;
+        this.IsSynchroToAppFormation = IsSynchroToAppFormation;
+        this.IsSynchroToCentrale = IsSynchroToCentrale;
     }
 
     public Long getCodeAgentEvaluationExercices() {
@@ -115,6 +119,22 @@ public class Agent_Evaluation_Exercices {
 
     public void setDateFinEvaluationDuRepondant(String dateFinEvaluationDuRepondant) {
         this.dateFinEvaluationDuRepondant = dateFinEvaluationDuRepondant;
+    }
+
+    public Boolean getIsSynchroToAppFormation() {
+        return IsSynchroToAppFormation;
+    }
+
+    public void setIsSynchroToAppFormation(Boolean IsSynchroToAppFormation) {
+        this.IsSynchroToAppFormation = IsSynchroToAppFormation;
+    }
+
+    public Boolean getIsSynchroToCentrale() {
+        return IsSynchroToCentrale;
+    }
+
+    public void setIsSynchroToCentrale(Boolean IsSynchroToCentrale) {
+        this.IsSynchroToCentrale = IsSynchroToCentrale;
     }
 
 }

@@ -13,6 +13,8 @@ public class ReponseEntree {
     private Long codeReponse;
     private Long CodeJustificationReponse;
     private String reponseSaisie;
+    private Boolean IsSynchroToAppFormation;
+    private Boolean IsSynchroToCentrale;
     private String createdBy;
     private String dateCreated;
     private String modifBy;
@@ -25,7 +27,7 @@ public class ReponseEntree {
         this.codeReponseEntree = codeReponseEntree;
     }
 
-    public ReponseEntree(Long codeReponseEntree, Long personnelId, Long codeFormulaireExercice, Long codeQuestion, Long codeReponse, Long CodeJustificationReponse, String reponseSaisie, String createdBy, String dateCreated, String modifBy, String dateModif) {
+    public ReponseEntree(Long codeReponseEntree, Long personnelId, Long codeFormulaireExercice, Long codeQuestion, Long codeReponse, Long CodeJustificationReponse, String reponseSaisie, Boolean IsSynchroToAppFormation, Boolean IsSynchroToCentrale, String createdBy, String dateCreated, String modifBy, String dateModif) {
         this.codeReponseEntree = codeReponseEntree;
         this.personnelId = personnelId;
         this.codeFormulaireExercice = codeFormulaireExercice;
@@ -33,6 +35,8 @@ public class ReponseEntree {
         this.codeReponse = codeReponse;
         this.CodeJustificationReponse = CodeJustificationReponse;
         this.reponseSaisie = reponseSaisie;
+        this.IsSynchroToAppFormation = IsSynchroToAppFormation;
+        this.IsSynchroToCentrale = IsSynchroToCentrale;
         this.createdBy = createdBy;
         this.dateCreated = dateCreated;
         this.modifBy = modifBy;
@@ -93,6 +97,22 @@ public class ReponseEntree {
 
     public void setReponseSaisie(String reponseSaisie) {
         this.reponseSaisie = reponseSaisie;
+    }
+
+    public Boolean getIsSynchroToAppFormation() {
+        return IsSynchroToAppFormation;
+    }
+
+    public void setIsSynchroToAppFormation(Boolean IsSynchroToAppFormation) {
+        this.IsSynchroToAppFormation = IsSynchroToAppFormation;
+    }
+
+    public Boolean getIsSynchroToCentrale() {
+        return IsSynchroToCentrale;
+    }
+
+    public void setIsSynchroToCentrale(Boolean IsSynchroToCentrale) {
+        this.IsSynchroToCentrale = IsSynchroToCentrale;
     }
 
     public String getCreatedBy() {

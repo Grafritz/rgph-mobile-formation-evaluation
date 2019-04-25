@@ -77,6 +77,9 @@ public class Main {
     //region [ MATERIEL ]
     public static final String MATERIEL_OBJECT="Materiel";
     public static final String TBL_MATERIEL_OBJECT="Tbl_Mob_Materiel";
+
+    public static final String MATERIEL_EXERCICE_OBJECT="MaterielExercice";
+    public static final String TBL_MATERIEL_EXERCICE_OBJECT="Tbl_Mob_MaterielExercice";
     //endregion
 
     /*public static final String PERSONNEL_OBJECT="Personnel";
@@ -112,57 +115,6 @@ public class Main {
         Schema schema= new Schema(DATABASE_VERSION, DESTINATION_PACKAGE_NAME);
         
 //region DYNAMIC QUESTION
-        /*
-        Entity personnel= schema.addEntity(PERSONNEL_OBJECT);
-        personnel.setTableName(TBL_PERSONNEL_OBJECT);
-        GenericEntityDao.createPersonnelEntity(personnel);
-
-        Entity formulaireExercices= schema.addEntity(FORMULAIRE_EXERCICE_OBJECT);
-        formulaireExercices.setTableName(TBL_FORMULAIRE_EXERCICE_OBJECT);
-        GenericEntityDao.createFormulaireExercicesEntity(formulaireExercices);
-
-        *//* Agent_Evaluation_Exercices *//*
-        Entity Agent_Evaluation_Exercices= schema.addEntity(AGENT_EVALUATION_EXERCICE_OBJECT);
-        Agent_Evaluation_Exercices.setTableName(TBL_AGENT_EVALUATION_EXERCICE_OBJECT);
-        GenericEntityDao.createAgentEvaluationExercicesEntity(Agent_Evaluation_Exercices);
-
-        *//* Question_Formulaire Exercices *//*
-        Entity Question_FormulaireExercices= schema.addEntity(QUESTION_FORMULAIREEXERCICE_OBJECT);
-        Question_FormulaireExercices.setTableName(TBL_QUESTION_FORMULAIREEXERCICE_OBJECT);
-        GenericEntityDao.createQuestion_FormulaireExercicesEntity(Question_FormulaireExercices);
-
-        Entity Questions= schema.addEntity(QUESTIONS_OBJECT);
-        Questions.setTableName(TBL_QUESTIONS_OBJECT);
-        GenericEntityDao.createQuestionsEntity(Questions);
-
-        Entity Reponses= schema.addEntity(REPONSES_OBJECT);
-        Reponses.setTableName(TBL_REPONSES_OBJECT);
-        GenericEntityDao.createReponsesEntity(Reponses);
-
-        Entity JustificationReponses= schema.addEntity(JUSTIFICATION_REPONSES_OBJECT);
-        JustificationReponses.setTableName(TBL_JUSTIFICATION_REPONSES_OBJECT);
-        GenericEntityDao.createJustificationReponsesEntity(JustificationReponses);
-
-        Entity ReponseEntree= schema.addEntity(REPONSE_ENTREE_OBJECT);
-        ReponseEntree.setTableName(TBL_REPONSE_ENTREE_OBJECT);
-        GenericEntityDao.createReponseEntreeEntity(ReponseEntree);
-
-        //Entity RapportResultat= schema.addEntity(RAPPORT_RESULTAT_OBJECT);
-        //RapportResultat.setTableName(TBL_RAPPORT_RESULTAT_OBJECT);
-        //GenericEntityDao.createRapportResultatEntity(RapportResultat);
-
-
-        Entity departement=schema.addEntity(DEPARTEMENT_OBJECT);
-        departement.setTableName(TBL_DEPARTEMENT);
-        GenericEntityDao.createDepartementEntity(departement);
-
-        Entity commune=schema.addEntity(COMMUNE_OBJECT);
-        commune.setTableName(TBL_COMMUNE);
-        GenericEntityDao.createCommuneEntity(commune);
-
-        Entity vqse=schema.addEntity(VQSE_OBJECT);
-        vqse.setTableName(TBL_VQSE);
-        GenericEntityDao.createVqseEntity(vqse);*/
 
         Entity personnel= schema.addEntity(PERSONNEL_OBJECT);
         personnel.setTableName(TBL_PERSONNEL_OBJECT);
@@ -247,6 +199,10 @@ public class Main {
         Entity materiel=schema.addEntity(MATERIEL_OBJECT);
         materiel.setTableName(TBL_MATERIEL_OBJECT);
         GenericEntityDao.createMaterielEntity(materiel);
+
+        Entity materielExercice=schema.addEntity(MATERIEL_EXERCICE_OBJECT);
+        materielExercice.setTableName(TBL_MATERIEL_EXERCICE_OBJECT);
+        GenericEntityDao.createMaterielExerciceEntity(materielExercice);
 
         new DaoGenerator().generateAll(schema, "../app/src/main/java");
     }

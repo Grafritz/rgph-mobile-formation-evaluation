@@ -33,6 +33,8 @@ public class Agent_Evaluation_ExercicesDao extends AbstractDao<Agent_Evaluation_
         public final static Property DureeDuRepondantEnSeconde = new Property(7, String.class, "dureeDuRepondantEnSeconde", false, "dureeDuRepondantEnSeconde");
         public final static Property DateDebutEvaluationDuRepondant = new Property(8, String.class, "dateDebutEvaluationDuRepondant", false, "dateDebutEvaluationDuRepondant");
         public final static Property DateFinEvaluationDuRepondant = new Property(9, String.class, "dateFinEvaluationDuRepondant", false, "dateFinEvaluationDuRepondant");
+        public final static Property IsSynchroToAppFormation = new Property(10, Boolean.class, "IsSynchroToAppFormation", false, "IsSynchroToAppFormation");
+        public final static Property IsSynchroToCentrale = new Property(11, Boolean.class, "IsSynchroToCentrale", false, "IsSynchroToCentrale");
     };
 
 
@@ -57,7 +59,9 @@ public class Agent_Evaluation_ExercicesDao extends AbstractDao<Agent_Evaluation_
                 "\"dureeEvaluationEnSeconde\" TEXT," + // 6: dureeEvaluationEnSeconde
                 "\"dureeDuRepondantEnSeconde\" TEXT," + // 7: dureeDuRepondantEnSeconde
                 "\"dateDebutEvaluationDuRepondant\" TEXT," + // 8: dateDebutEvaluationDuRepondant
-                "\"dateFinEvaluationDuRepondant\" TEXT);"); // 9: dateFinEvaluationDuRepondant
+                "\"dateFinEvaluationDuRepondant\" TEXT," + // 9: dateFinEvaluationDuRepondant
+                "\"IsSynchroToAppFormation\" INTEGER," + // 10: IsSynchroToAppFormation
+                "\"IsSynchroToCentrale\" INTEGER);"); // 11: IsSynchroToCentrale
     }
 
     /** Drops the underlying database table. */
@@ -120,6 +124,16 @@ public class Agent_Evaluation_ExercicesDao extends AbstractDao<Agent_Evaluation_
         if (dateFinEvaluationDuRepondant != null) {
             stmt.bindString(10, dateFinEvaluationDuRepondant);
         }
+ 
+        Boolean IsSynchroToAppFormation = entity.getIsSynchroToAppFormation();
+        if (IsSynchroToAppFormation != null) {
+            stmt.bindLong(11, IsSynchroToAppFormation ? 1L: 0L);
+        }
+ 
+        Boolean IsSynchroToCentrale = entity.getIsSynchroToCentrale();
+        if (IsSynchroToCentrale != null) {
+            stmt.bindLong(12, IsSynchroToCentrale ? 1L: 0L);
+        }
     }
 
     /** @inheritdoc */
@@ -141,7 +155,9 @@ public class Agent_Evaluation_ExercicesDao extends AbstractDao<Agent_Evaluation_
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // dureeEvaluationEnSeconde
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // dureeDuRepondantEnSeconde
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // dateDebutEvaluationDuRepondant
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9) // dateFinEvaluationDuRepondant
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // dateFinEvaluationDuRepondant
+            cursor.isNull(offset + 10) ? null : cursor.getShort(offset + 10) != 0, // IsSynchroToAppFormation
+            cursor.isNull(offset + 11) ? null : cursor.getShort(offset + 11) != 0 // IsSynchroToCentrale
         );
         return entity;
     }
@@ -159,6 +175,8 @@ public class Agent_Evaluation_ExercicesDao extends AbstractDao<Agent_Evaluation_
         entity.setDureeDuRepondantEnSeconde(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setDateDebutEvaluationDuRepondant(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setDateFinEvaluationDuRepondant(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setIsSynchroToAppFormation(cursor.isNull(offset + 10) ? null : cursor.getShort(offset + 10) != 0);
+        entity.setIsSynchroToCentrale(cursor.isNull(offset + 11) ? null : cursor.getShort(offset + 11) != 0);
      }
     
     /** @inheritdoc */

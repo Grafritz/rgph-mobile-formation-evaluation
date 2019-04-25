@@ -158,6 +158,8 @@ public class GenericEntityDao {
         entity.addLongProperty("codeReponse").columnName("codeReponse");
         entity.addLongProperty("CodeJustificationReponse").columnName("CodeJustificationReponse");
         entity.addStringProperty("reponseSaisie").columnName("reponseSaisie");
+        entity.addBooleanProperty("IsSynchroToAppFormation").columnName("IsSynchroToAppFormation");
+        entity.addBooleanProperty("IsSynchroToCentrale").columnName("IsSynchroToCentrale");
         entity.addStringProperty("createdBy").columnName("createdBy");
         entity.addStringProperty("dateCreated").columnName("dateCreated");
         entity.addStringProperty("modifBy").columnName("modifBy");
@@ -175,6 +177,8 @@ public class GenericEntityDao {
         entity.addStringProperty("dureeDuRepondantEnSeconde").columnName("dureeDuRepondantEnSeconde");
         entity.addStringProperty("dateDebutEvaluationDuRepondant").columnName("dateDebutEvaluationDuRepondant");
         entity.addStringProperty("dateFinEvaluationDuRepondant").columnName("dateFinEvaluationDuRepondant");
+        entity.addBooleanProperty("IsSynchroToAppFormation").columnName("IsSynchroToAppFormation");
+        entity.addBooleanProperty("IsSynchroToCentrale").columnName("IsSynchroToCentrale");
     }
     //endregion
 
@@ -207,5 +211,16 @@ public class GenericEntityDao {
         entity.addStringProperty("DateAssignation").columnName("DateAssignation");
         entity.addIntProperty("IsConfigured").columnName("IsConfigured");
         entity.addStringProperty("Synchronisation").columnName("Synchronisation");
+    }
+
+    public static void createMaterielExerciceEntity(Entity entity){
+        entity.addLongProperty("MaterielExerciceId").columnName("MaterielExerciceId").primaryKey().autoincrement();
+        entity.addLongProperty("CodeFormulaireExercice").columnName("CodeFormulaireExercice");
+        entity.addLongProperty("PersonnelId").columnName("PersonnelId");
+        entity.addStringProperty("Imei").columnName("Imei");
+        entity.addStringProperty("Serial").columnName("Serial");
+        entity.addStringProperty("Model").columnName("Model");
+        entity.addStringProperty("Version").columnName("Version");
+        entity.addStringProperty("DateTransfert").columnName("DateTransfert");
     }
 }
