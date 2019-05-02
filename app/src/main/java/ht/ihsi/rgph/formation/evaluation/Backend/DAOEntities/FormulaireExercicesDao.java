@@ -29,8 +29,9 @@ public class FormulaireExercicesDao extends AbstractDao<FormulaireExercices, Lon
         public final static Property Instructions = new Property(3, String.class, "instructions", false, "instructions");
         public final static Property RappelExercice = new Property(4, String.class, "rappelExercice", false, "rappelExercice");
         public final static Property TypeEvaluation = new Property(5, String.class, "typeEvaluation", false, "typeEvaluation");
-        public final static Property Statut = new Property(6, String.class, "statut", false, "statut");
-        public final static Property DureeEnSeconde = new Property(7, String.class, "dureeEnSeconde", false, "dureeEnSeconde");
+        public final static Property NiveauFormation = new Property(6, String.class, "niveauFormation", false, "niveauFormation");
+        public final static Property Statut = new Property(7, String.class, "statut", false, "statut");
+        public final static Property DureeEnSeconde = new Property(8, String.class, "dureeEnSeconde", false, "dureeEnSeconde");
     };
 
 
@@ -52,8 +53,9 @@ public class FormulaireExercicesDao extends AbstractDao<FormulaireExercices, Lon
                 "\"instructions\" TEXT," + // 3: instructions
                 "\"rappelExercice\" TEXT," + // 4: rappelExercice
                 "\"typeEvaluation\" TEXT," + // 5: typeEvaluation
-                "\"statut\" TEXT," + // 6: statut
-                "\"dureeEnSeconde\" TEXT);"); // 7: dureeEnSeconde
+                "\"niveauFormation\" TEXT," + // 6: niveauFormation
+                "\"statut\" TEXT," + // 7: statut
+                "\"dureeEnSeconde\" TEXT);"); // 8: dureeEnSeconde
     }
 
     /** Drops the underlying database table. */
@@ -97,14 +99,19 @@ public class FormulaireExercicesDao extends AbstractDao<FormulaireExercices, Lon
             stmt.bindString(6, typeEvaluation);
         }
  
+        String niveauFormation = entity.getNiveauFormation();
+        if (niveauFormation != null) {
+            stmt.bindString(7, niveauFormation);
+        }
+ 
         String statut = entity.getStatut();
         if (statut != null) {
-            stmt.bindString(7, statut);
+            stmt.bindString(8, statut);
         }
  
         String dureeEnSeconde = entity.getDureeEnSeconde();
         if (dureeEnSeconde != null) {
-            stmt.bindString(8, dureeEnSeconde);
+            stmt.bindString(9, dureeEnSeconde);
         }
     }
 
@@ -124,8 +131,9 @@ public class FormulaireExercicesDao extends AbstractDao<FormulaireExercices, Lon
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // instructions
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // rappelExercice
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // typeEvaluation
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // statut
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // dureeEnSeconde
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // niveauFormation
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // statut
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // dureeEnSeconde
         );
         return entity;
     }
@@ -139,8 +147,9 @@ public class FormulaireExercicesDao extends AbstractDao<FormulaireExercices, Lon
         entity.setInstructions(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setRappelExercice(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setTypeEvaluation(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setStatut(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setDureeEnSeconde(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setNiveauFormation(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setStatut(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setDureeEnSeconde(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
      }
     
     /** @inheritdoc */

@@ -36,6 +36,12 @@ public class SplashScreen extends BaseActivity {
 
         init(Constant.QUERY_RECORD_MANAGER);
         init(Constant.FORM_DATA_MANAGER);
+
+        boolean result = Tools.CheckPermission(this);
+        if(!result) {
+            message="External storage permission is necessary";
+            Tools.ToastMessage(this, message);
+        }
         /*Thread splashTread = new Thread() {
             @Override
             public void run() {
@@ -75,17 +81,17 @@ public class SplashScreen extends BaseActivity {
                 message = loadStaticDataMngr.loadData_DEPARTEMENT(this, database, tv_MsgSplashScreen);
                 tv_MsgSplashScreen.setText( message );
                 message += loadStaticDataMngr.loadData_PERSONNEL(this, database, tv_MsgSplashScreen);
-                //tv_MsgSplashScreen.setText( message );
-                //message += loadStaticDataMngr.loadData_QUESTIONS(this, database, tv_MsgSplashScreen);
-                //tv_MsgSplashScreen.setText( message );
-                //message += loadStaticDataMngr.loadData_REPONSES(this, database, tv_MsgSplashScreen);
-                //tv_MsgSplashScreen.setText( message );
-                //message += loadStaticDataMngr.loadData_QUESTIONS_JUSTIFICATION_REPONSE(this, database, tv_MsgSplashScreen);
-                //tv_MsgSplashScreen.setText( message );
-                //message += loadStaticDataMngr.loadData_FORMULAIRE_EXERCICES(this, database, tv_MsgSplashScreen);
-                //tv_MsgSplashScreen.setText( message );
-                //message += loadStaticDataMngr.loadData_QUESTIONS_FORMULAIRE_EXERCICES(this, database, tv_MsgSplashScreen);
-
+               /* tv_MsgSplashScreen.setText( message );
+                message += loadStaticDataMngr.loadData_QUESTIONS(this, database, tv_MsgSplashScreen);
+                tv_MsgSplashScreen.setText( message );
+                message += loadStaticDataMngr.loadData_REPONSES(this, database, tv_MsgSplashScreen);
+                tv_MsgSplashScreen.setText( message );
+                message += loadStaticDataMngr.loadData_QUESTIONS_JUSTIFICATION_REPONSE(this, database, tv_MsgSplashScreen);
+                tv_MsgSplashScreen.setText( message );
+                message += loadStaticDataMngr.loadData_FORMULAIRE_EXERCICES(this, database, tv_MsgSplashScreen);
+                tv_MsgSplashScreen.setText( message );
+                message += loadStaticDataMngr.loadData_QUESTIONS_FORMULAIRE_EXERCICES(this, database, tv_MsgSplashScreen);
+*/
                 tv_MsgSplashScreen.setText( message );
 
                 new Handler().postDelayed(new Runnable() {

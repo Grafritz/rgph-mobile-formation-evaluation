@@ -92,6 +92,7 @@ public class GenericEntityDao {
         entity.addStringProperty("instructions").columnName("instructions");
         entity.addStringProperty("rappelExercice").columnName("rappelExercice");
         entity.addStringProperty("typeEvaluation").columnName("typeEvaluation");
+        entity.addStringProperty("niveauFormation").columnName("niveauFormation");
         entity.addStringProperty("statut").columnName("statut");
         entity.addStringProperty("dureeEnSeconde").columnName("dureeEnSeconde");
         //entity.addStringProperty("createdBy").columnName("createdBy");

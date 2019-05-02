@@ -12,6 +12,7 @@ public class FormulaireExercices {
     private String instructions;
     private String rappelExercice;
     private String typeEvaluation;
+    private String niveauFormation;
     private String statut;
     private String dureeEnSeconde;
 
@@ -22,13 +23,14 @@ public class FormulaireExercices {
         this.codeExercice = codeExercice;
     }
 
-    public FormulaireExercices(Long codeExercice, String libelleExercice, String descriptions, String instructions, String rappelExercice, String typeEvaluation, String statut, String dureeEnSeconde) {
+    public FormulaireExercices(Long codeExercice, String libelleExercice, String descriptions, String instructions, String rappelExercice, String typeEvaluation, String niveauFormation, String statut, String dureeEnSeconde) {
         this.codeExercice = codeExercice;
         this.libelleExercice = libelleExercice;
         this.descriptions = descriptions;
         this.instructions = instructions;
         this.rappelExercice = rappelExercice;
         this.typeEvaluation = typeEvaluation;
+        this.niveauFormation = niveauFormation;
         this.statut = statut;
         this.dureeEnSeconde = dureeEnSeconde;
     }
@@ -79,6 +81,14 @@ public class FormulaireExercices {
 
     public void setTypeEvaluation(String typeEvaluation) {
         this.typeEvaluation = typeEvaluation;
+    }
+
+    public String getNiveauFormation() {
+        return niveauFormation;
+    }
+
+    public void setNiveauFormation(String niveauFormation) {
+        this.niveauFormation = niveauFormation;
     }
 
     public String getStatut() {
